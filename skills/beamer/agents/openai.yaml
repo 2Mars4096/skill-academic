@@ -1,0 +1,7 @@
+interface:
+  display_name: "Beamer"
+  short_description: "Build and refine academic Beamer decks"
+  default_prompt: "Use $beamer to build or revise this academic Beamer deck, compile it, and tighten the slide logic and layout."
+
+policy:
+  allow_implicit_invocation: true

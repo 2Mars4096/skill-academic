@@ -1,0 +1,7 @@
+interface:
+  display_name: "Academic Proposal Workshop"
+  short_description: "Narrow rough ideas into viable proposals"
+  default_prompt: "Use $academic-proposal-workshop to turn this rough research idea into an executable academic proposal."
+
+policy:
+  allow_implicit_invocation: true

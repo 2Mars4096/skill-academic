@@ -1,9 +1,9 @@
 ---
-name: academic-proposal-workshop
+name: acad-proposal
 description: Turn rough, immature research ideas into narrow, executable academic research proposals through staged questioning, pushback, and structured drafting. Use when the user has a broad topic, scattered notes, partial materials, or a half-formed idea and needs help refining it into a specific research question, testable hypotheses, feasible data construction, empirical design, interpretation tree, and proposal outline.
 ---
 
-# Academic Proposal Workshop
+# Acad Proposal
 
 ## Overview
 

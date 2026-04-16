@@ -1,0 +1,7 @@
+interface:
+  display_name: "Acad Proposal"
+  short_description: "Narrow rough ideas into viable proposals"
+  default_prompt: "Use $acad-proposal to turn this rough research idea into an executable academic proposal."
+
+policy:
+  allow_implicit_invocation: true

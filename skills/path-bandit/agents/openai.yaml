@@ -1,0 +1,7 @@
+interface:
+  display_name: "Path Bandit"
+  short_description: "Turn brainstorming into diverse next paths"
+  default_prompt: "Use $path-bandit to brainstorm, surface orthogonal but executable paths, then decide what to explore, exploit, park, or drop."
+
+policy:
+  allow_implicit_invocation: true

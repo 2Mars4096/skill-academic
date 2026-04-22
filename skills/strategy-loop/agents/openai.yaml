@@ -1,0 +1,7 @@
+interface:
+  display_name: "Strategy Loop"
+  short_description: "Run iterative multi-agent strategy rounds"
+  default_prompt: "Use $strategy-loop to manage evidence-driven multi-round strategy refinement with explorer, critic, and validator roles."
+
+policy:
+  allow_implicit_invocation: true

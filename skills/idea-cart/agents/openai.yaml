@@ -1,0 +1,7 @@
+interface:
+  display_name: "Idea Cart"
+  short_description: "Save key ideas until checkout"
+  default_prompt: "Use $idea-cart to capture key points during this session, keep the cart small, and checkout selected items into concrete next actions."
+
+policy:
+  allow_implicit_invocation: true

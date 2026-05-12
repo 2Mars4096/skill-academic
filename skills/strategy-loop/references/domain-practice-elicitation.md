@@ -47,14 +47,26 @@ Then pin down:
 - What artifacts do practitioners actually manipulate?
 - What failure would be expensive or misleading?
 
-### Tier 2: Incumbents And References
+### Tier 2: Representation Contract
+
+For data/modeling/benchmark/search tasks, answer this before proposing sweeps:
+
+- What are the stable comparable objects, states, users, documents, rows, cases, or regimes?
+- What does the current distance, similarity, grouping, prompt, or benchmark slice assume?
+- Which raw fields are coordinate-system artifacts, proxies, labels, leaks, or train-only signals?
+- What allowed observables can verify same-status or same-regime comparison?
+- What fold-safe, holdout-safe, or deployment-safe proxy is needed for any target-like concept?
+
+If this contract is weak, first test representations, selectors, or diagnostics rather than deeper model or parameter sweeps.
+
+### Tier 3: Incumbents And References
 
 - What simple baseline would expose fake progress?
 - What incumbent method, workflow, heuristic, or tool is commonly hard to beat?
 - What public notebook, reference implementation, mature product, paper, guide, or prior run should be decomposed for parts?
 - Which pieces of the reference are trustworthy, and which may be leakage, overfit, outdated, or context-specific?
 
-### Tier 3: Practice Move Menu
+### Tier 4: Practice Move Menu
 
 Use this menu to generate practical candidates. Do not use every category; pick the ones that match the task class and artifacts.
 
@@ -69,7 +81,7 @@ Use this menu to generate practical candidates. Do not use every category; pick 
 
 For each candidate, ask: what is the cheapest variant that could produce decision-changing evidence?
 
-### Tier 4: Natural Role
+### Tier 5: Natural Role
 
 Classify each practice candidate by the role it should naturally play:
 
@@ -83,7 +95,7 @@ Classify each practice candidate by the role it should naturally play:
 
 Do not kill a candidate because it is weak as a standalone if its natural role is a feature, prior, gate, blend, postprocess, or diagnostic.
 
-### Tier 5: Test And Verification
+### Tier 6: Test And Verification
 
 For the top candidates, define:
 
@@ -94,11 +106,12 @@ For the top candidates, define:
 - What would make the result misleading?
 - Does the claim need source lookup, benchmark, experiment, or human review?
 
-### Tier 6: Missed Practice Audit
+### Tier 7: Missed Practice Audit
 
 Run this after a weak or surprising round:
 
 - What expert-standard trick, baseline, or diagnostic did we still not test?
+- Did we keep searching inside a bad representation or similarity assumption?
 - Did we dismiss a public/reference solution too broadly instead of decomposing it into parts?
 - Did we test each idea in its natural role?
 - Did validation caution prevent cheap practical exploration that could have been made fold-safe, holdout-safe, or otherwise rigorous?
@@ -122,6 +135,7 @@ For each useful practice, record:
 End the pass with:
 
 - `Expert priors worth testing`
+- `Representation contract`: comparable objects, similarity assumptions, allowed regime signals, invalid shortcuts
 - `Standard baselines to include`
 - `Cheap diagnostic checks`
 - `Domain-informed candidate branches`

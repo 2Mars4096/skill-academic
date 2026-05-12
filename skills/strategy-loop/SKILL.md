@@ -15,7 +15,7 @@ For search-heavy work such as tuning, model or prompt selection, benchmark optim
 
 If the task is broad, underspecified, or likely to produce vague branches, read [references/operationalization-questions.md](references/operationalization-questions.md) before seeding the portfolio. Use it to tighten the problem into testable paths, better prompts, and cleaner promotion rules across domains.
 
-If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> artifacts -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
+If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> representation contract -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
 
 ## When To Use
 
@@ -90,7 +90,7 @@ If any of `Goal`, `Success metric`, or `Validation source` is missing, state the
 
 If these fields exist but are still too broad to drive good branching, run a short operationalization pass before moving on. Ask only the questions that would materially change path choice, validation design, or stopping rules.
 
-If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. For benchmark, tuning, modeling, domain-heavy, or specialized-workflow tasks, this pass is mandatory but bounded.
+If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. For benchmark, tuning, modeling, domain-heavy, or specialized-workflow tasks, this pass is mandatory but bounded. Do not launch broad sweeps or child workers until the loop has named the representation assumption it is using.
 
 ## 3. Run The Practice Funnel When Triggered
 
@@ -98,6 +98,7 @@ Use [references/domain-practice-elicitation.md](references/domain-practice-elici
 
 Minimum output:
 
+- representation contract: comparable objects, raw similarity assumption, allowed status/regime signals, and invalid shortcuts
 - standard baseline or incumbent
 - practical moves worth testing
 - natural role for each move
@@ -136,11 +137,15 @@ Change the split only when evidence justifies it. Do not spend all effort on nov
 
 For search-heavy tasks, define the evaluation tier for the round up front: cheap screen, local refinement, or full confirmation. Do not mix broad exploration and expensive confirmation in the same round unless there is a clear reason.
 
+For data/modeling/benchmark searches, a round is underspecified if it cannot state what objects are comparable, what distance or similarity means, and what observable evidence would falsify that representation.
+
 When live strategies differ mainly by configuration, thresholds, prompts, or tuning choices, do not run an unstructured sweep. Use staged search: broad first-pass coverage, explicit promotion criteria, local refinement around stable regions, and a harder confirmation pass before adoption.
 
 ## 6. Assign Complementary Roles
 
 Use separate agents or sessions only when the user explicitly wants delegation or multi-agent work and the environment supports it. Do not launch redundant workers.
+
+When delegating domain-heavy search work, assign a concrete representation assumption, owned artifact, role-of-idea test, or falsification check. Avoid vague prompts such as "explore features" or "try more configs."
 
 Default roles:
 
@@ -253,6 +258,7 @@ End each round with:
 - `Goal and current state`
 - `Context lens`: project type, decision object, stage, expensive next choice
 - `Practice inventory`: only when the practice funnel was triggered; include baselines, practical moves, natural roles, and traps
+- `Representation contract`: only for data/modeling/benchmark tasks; include comparable objects, similarity assumptions, and invalid shortcuts
 - `Active strategies`
 - `This round's role allocation`
 - `Evidence gained`

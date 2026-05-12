@@ -13,6 +13,11 @@ Recommended top-level fields:
 
 - `goal`
 - `success_metric`
+- `project_type`
+- `decision_object`
+- `stage`
+- `context_anchors`
+- `expensive_next_choice`
 - `round_index`
 - `validation_source`
 - `strategies`
@@ -38,6 +43,12 @@ Each strategy should include:
 
 The scorer also accepts rough text labels such as `low`, `medium`, and `high` for `confidence`, `novelty`, `cost`, and `risk`.
 
+Optional provenance fields for domain-informed strategy loops:
+
+- `source_type`: `expert_prior`, `standard_baseline`, `common_trap_check`, `diagnostic`, `user_supplied`, or `needs_verification`
+- `verification_need`: `none`, `source_lookup`, `benchmark`, `experiment`, or `human_review`
+- `expert_signal`: field-specific signal, slice, stress case, or diagnostic that should influence promotion
+
 ## Update Rules
 
 - Keep `id` stable across rounds.
@@ -46,6 +57,7 @@ The scorer also accepts rough text labels such as `low`, `medium`, and `high` fo
 - Update `confidence` from validation depth, not prose quality.
 - Fill `failure_reason` as soon as a path is parked or killed.
 - Store cross-round lessons under `lessons` so bad assumptions and weak prompts are not retried blindly.
+- Keep domain-practice provenance separate from measured reward. An expert prior should start as a reason to test, not as evidence that the branch works.
 
 ## Example
 
@@ -53,6 +65,11 @@ The scorer also accepts rough text labels such as `low`, `medium`, and `high` fo
 {
   "goal": "Improve manager dispatch quality for repo-scale coding tasks",
   "success_metric": "Higher validated completion rate with fewer wasted launches",
+  "project_type": "agent workflow",
+  "decision_object": "planner dispatch policy",
+  "stage": "competing paths",
+  "context_anchors": ["prior child reports", "validation logs", "team-leader dashboard"],
+  "expensive_next_choice": "which planner policy should drive the next implementation wave",
   "round_index": 3,
   "validation_source": "holdout implementation tasks and review findings",
   "strategies": [

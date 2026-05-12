@@ -15,7 +15,7 @@ For search-heavy work such as tuning, model or prompt selection, benchmark optim
 
 If the task is broad, underspecified, or likely to produce vague branches, read [references/operationalization-questions.md](references/operationalization-questions.md) before seeding the portfolio. Use it to tighten the problem into testable paths, better prompts, and cleaner promotion rules across domains.
 
-If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Use it to surface expert priors as candidates to test, not as facts to trust blindly.
+If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> artifacts -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
 
 ## When To Use
 
@@ -38,13 +38,14 @@ Run this sequence:
 
 1. `Run the context funnel`
 2. `Lock the state`
-3. `Seed or import the portfolio`
-4. `Define the round`
-5. `Assign complementary roles`
-6. `Run propose -> attack -> repair -> validate`
-7. `Update the ledger`
-8. `Reallocate budget`
-9. `Stop, continue, or reframe`
+3. `Run the practice funnel when triggered`
+4. `Seed or import the portfolio`
+5. `Define the round`
+6. `Assign complementary roles`
+7. `Run propose -> attack -> repair -> validate`
+8. `Update the ledger`
+9. `Reallocate budget`
+10. `Stop, continue, or reframe`
 
 ## 1. Run The Context Funnel
 
@@ -89,9 +90,21 @@ If any of `Goal`, `Success metric`, or `Validation source` is missing, state the
 
 If these fields exist but are still too broad to drive good branching, run a short operationalization pass before moving on. Ask only the questions that would materially change path choice, validation design, or stopping rules.
 
-If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. Capture expert baselines, common diagnostics, traps, and practices that should become candidate branches or validation checks.
+If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. For benchmark, tuning, modeling, domain-heavy, or specialized-workflow tasks, this pass is mandatory but bounded.
 
-## 3. Seed Or Import The Portfolio
+## 3. Run The Practice Funnel When Triggered
+
+Use [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) when triggered. Ask the tiered questions in order and stop once they produce enough testable practice candidates.
+
+Minimum output:
+
+- standard baseline or incumbent
+- practical moves worth testing
+- natural role for each move
+- smallest credible test
+- common trap or misleading signal to guard against
+
+## 4. Seed Or Import The Portfolio
 
 Start with `2` to `5` candidate strategies. If the user already has them, normalize their labels and theses. If not, derive them from the current work or hand off to `path-bandit` to build the first portfolio.
 
@@ -101,6 +114,7 @@ For each strategy, capture:
 - `Thesis`
 - `Status`: `live`, `parked`, `killed`, or `validated`
 - `Parent`: blank for originals, or the source strategy when mutated
+- `Natural role`: `standalone`, `input_or_feature`, `prior_or_constraint`, `gate_or_router`, `blend_or_fallback`, `postprocess`, or `diagnostic`
 - `First test`
 - `Expected upside`
 - `Main uncertainty`
@@ -108,9 +122,9 @@ For each strategy, capture:
 
 Use [references/ledger-schema.md](references/ledger-schema.md) for the canonical fields and update rules.
 
-When a strategy comes from domain-practice elicitation, mark whether it is `expert prior`, `standard baseline`, `common trap check`, or `needs external verification`.
+When a strategy comes from domain-practice elicitation, mark whether it is `expert prior`, `standard baseline`, `common trap check`, or `needs external verification`. Do not kill a practice-derived idea only because it failed in a role it was not meant to play; first test its natural role or record why that role is too costly or invalid.
 
-## 4. Define The Round
+## 5. Define The Round
 
 Set the allocation before launching work. Default split:
 
@@ -124,7 +138,7 @@ For search-heavy tasks, define the evaluation tier for the round up front: cheap
 
 When live strategies differ mainly by configuration, thresholds, prompts, or tuning choices, do not run an unstructured sweep. Use staged search: broad first-pass coverage, explicit promotion criteria, local refinement around stable regions, and a harder confirmation pass before adoption.
 
-## 5. Assign Complementary Roles
+## 6. Assign Complementary Roles
 
 Use separate agents or sessions only when the user explicitly wants delegation or multi-agent work and the environment supports it. Do not launch redundant workers.
 
@@ -148,7 +162,7 @@ If the early prompts keep producing generic or ornamental work, read [references
 
 If the prompts ignore field practice or reinvent obvious baselines, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) and add a domain-practice pass before the next round.
 
-## 6. Run Propose -> Attack -> Repair -> Validate
+## 7. Run Propose -> Attack -> Repair -> Validate
 
 Every active round should produce evidence-bearing artifacts, not just better wording.
 
@@ -174,7 +188,7 @@ Unacceptable evidence:
 - self-grading by the proposing agent
 - success criteria invented after the result is known
 
-## 7. Update The Ledger
+## 8. Update The Ledger
 
 After every round, update:
 
@@ -193,7 +207,7 @@ Keep stable strategy IDs across rounds. New variants get new IDs plus a parent p
 
 Use `scripts/score_strategies.py` when you want deterministic ranking from a JSON or YAML ledger.
 
-## 8. Reallocate Budget
+## 9. Reallocate Budget
 
 Use the live leaderboard to choose the next move.
 
@@ -218,7 +232,7 @@ Default action policy:
 
 Do not reward verbosity. Reward measured progress, validated robustness, and cheaper learning.
 
-## 9. Stop, Continue, Or Reframe
+## 10. Stop, Continue, Or Reframe
 
 Stop the loop when:
 
@@ -238,6 +252,7 @@ End each round with:
 
 - `Goal and current state`
 - `Context lens`: project type, decision object, stage, expensive next choice
+- `Practice inventory`: only when the practice funnel was triggered; include baselines, practical moves, natural roles, and traps
 - `Active strategies`
 - `This round's role allocation`
 - `Evidence gained`

@@ -48,6 +48,10 @@ Optional provenance fields for domain-informed strategy loops:
 - `source_type`: `expert_prior`, `standard_baseline`, `common_trap_check`, `diagnostic`, `user_supplied`, or `needs_verification`
 - `verification_need`: `none`, `source_lookup`, `benchmark`, `experiment`, or `human_review`
 - `expert_signal`: field-specific signal, slice, stress case, or diagnostic that should influence promotion
+- `natural_role`: `standalone`, `input_or_feature`, `prior_or_constraint`, `gate_or_router`, `blend_or_fallback`, `postprocess`, or `diagnostic`
+- `tested_roles`: roles already tested for this idea
+- `natural_test`: the smallest credible test in the role where the idea should actually help
+- `premature_kill_risk`: `low`, `medium`, or `high`
 
 ## Update Rules
 
@@ -58,6 +62,7 @@ Optional provenance fields for domain-informed strategy loops:
 - Fill `failure_reason` as soon as a path is parked or killed.
 - Store cross-round lessons under `lessons` so bad assumptions and weak prompts are not retried blindly.
 - Keep domain-practice provenance separate from measured reward. An expert prior should start as a reason to test, not as evidence that the branch works.
+- Do not kill a practice-derived path for weak standalone results if its `natural_role` has not been tested or explicitly rejected as too costly, invalid, or unsafe.
 
 ## Example
 

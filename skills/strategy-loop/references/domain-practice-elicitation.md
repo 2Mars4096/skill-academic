@@ -16,51 +16,93 @@ Use this before seeding or mutating the portfolio when:
 
 Skip it when the task is domain-neutral, already has explicit expert context, or only needs a small implementation with clear acceptance tests.
 
-## Core Questions
+## Tiered Practice Funnel
 
-Ask the smallest useful subset.
+Run the tiers in order. Ask only the smallest useful subset, prefer inspecting artifacts over asking the user, and stop when you have `2` to `5` concrete candidates that can change the next round.
 
-### Expert First Checks
+### Tier 0: Trigger And Budget
 
-- What would an experienced practitioner check first?
-- What quick diagnostic would reveal whether the current framing is wrong?
-- What simple baseline or sanity check should exist before complex work starts?
+- Does the task have specialized metrics, artifacts, tools, constraints, or practitioner norms?
+- Would a strong public solution, past winner, field expert, or mature tool know obvious first moves?
+- Is the next decision costly enough to justify a practice pass?
+- What is the time budget: `mini` one or two questions, `standard` one pass through all tiers, or `deep` with source verification?
 
-### Standard Baselines
+Skip the pass if the task is domain-neutral or already has clear acceptance tests and no meaningful strategy choice.
 
-- What default method, workflow, heuristic, or benchmark is commonly hard to beat?
-- What naive baseline would expose fake progress?
-- What incumbent should every proposed branch compare against?
+### Tier 1: Task Class
 
-### Common Practices
+Pick the closest class before asking detailed questions:
 
-- What practices, feature ideas, parameter regimes, workflows, or decomposition patterns are commonly useful here?
-- What cheap variants are worth testing before expensive ones?
-- What field-specific tools, artifacts, or representations usually matter?
+- benchmark, modeling, tuning, ranking, or leaderboard work
+- empirical, scientific, or academic research
+- codebase, architecture, or developer workflow
+- product, UX, operations, or business process
+- writing, slides, communication, or review
+- other specialized domain
 
-### Common Traps
+Then pin down:
 
-- What mistakes often create misleading wins?
-- What leakage, confounding, shortcut, metric mismatch, UX illusion, benchmark artifact, or deployment mismatch should be checked?
-- What result would look impressive to a non-expert but fail expert review?
+- What object is being improved?
+- What metric or review standard decides success?
+- What artifacts do practitioners actually manipulate?
+- What failure would be expensive or misleading?
 
-### Expert Signals
+### Tier 2: Incumbents And References
 
-- What signals would a field expert use to tell whether progress is real?
-- What hard cases, slices, edge cases, or stress checks are considered diagnostic?
-- What secondary metric can override the headline score?
+- What simple baseline would expose fake progress?
+- What incumbent method, workflow, heuristic, or tool is commonly hard to beat?
+- What public notebook, reference implementation, mature product, paper, guide, or prior run should be decomposed for parts?
+- Which pieces of the reference are trustworthy, and which may be leakage, overfit, outdated, or context-specific?
 
-### Domain Constraints
+### Tier 3: Practice Move Menu
 
-- What assumptions, invariants, interfaces, norms, or safety boundaries should not be violated?
-- Which constraints are hard requirements versus preferences?
-- What hidden cost, latency, complexity, or maintenance burden matters in this field?
+Use this menu to generate practical candidates. Do not use every category; pick the ones that match the task class and artifacts.
 
-### Verification Need
+- `Representation`: features, abstractions, schemas, prompts, transforms, decompositions, data views
+- `Baselines`: naive, incumbent, oracle-ish, cheap sanity check, lower-cost fallback
+- `Search`: coarse-to-fine grids, thresholds, schedules, seeds, parameter regimes, sensitivity checks
+- `Combination`: ensemble, stack, blend, routing, fallback, voting, arbitration
+- `Prior or constraint`: physics, invariants, business rules, style rules, monotonicity, feasibility checks
+- `Postprocess`: calibration, smoothing, formatting, ranking adjustment, repair pass, consistency enforcement
+- `Diagnostics`: error slices, hard cases, stress tests, expert signals, counterexamples
+- `Tooling`: library, parser, simulator, benchmark harness, evaluator, automation script
 
-- Which expert-practice claims can be trusted from current context?
-- Which should be verified from docs, papers, benchmarks, source code, user feedback, or direct experiments?
-- Which claims are likely outdated or context-dependent?
+For each candidate, ask: what is the cheapest variant that could produce decision-changing evidence?
+
+### Tier 4: Natural Role
+
+Classify each practice candidate by the role it should naturally play:
+
+- `standalone`: a complete alternative strategy
+- `input_or_feature`: a signal, representation, prompt, data view, or helper artifact
+- `prior_or_constraint`: a rule that narrows or regularizes the solution
+- `gate_or_router`: a confidence signal, branch selector, or escalation rule
+- `blend_or_fallback`: a weak component that can improve robustness in combination
+- `postprocess`: a final repair, calibration, smoothing, ranking, or formatting step
+- `diagnostic`: a check that changes trust, promotion, or kill decisions
+
+Do not kill a candidate because it is weak as a standalone if its natural role is a feature, prior, gate, blend, postprocess, or diagnostic.
+
+### Tier 5: Test And Verification
+
+For the top candidates, define:
+
+- What baseline or incumbent will it compare against?
+- What is the smallest credible test?
+- What result promotes it?
+- What result parks or kills it?
+- What would make the result misleading?
+- Does the claim need source lookup, benchmark, experiment, or human review?
+
+### Tier 6: Missed Practice Audit
+
+Run this after a weak or surprising round:
+
+- What expert-standard trick, baseline, or diagnostic did we still not test?
+- Did we dismiss a public/reference solution too broadly instead of decomposing it into parts?
+- Did we test each idea in its natural role?
+- Did validation caution prevent cheap practical exploration that could have been made fold-safe, holdout-safe, or otherwise rigorous?
+- What single low-cost practice candidate should be added, mutated, or promoted next?
 
 ## Convert Answers Into Strategy Branches
 
@@ -68,6 +110,7 @@ For each useful practice, record:
 
 - `Source type`: expert prior, standard baseline, common trap check, diagnostic, or needs verification
 - `Branch thesis`: why this practice might help
+- `Natural role`: standalone, input_or_feature, prior_or_constraint, gate_or_router, blend_or_fallback, postprocess, or diagnostic
 - `Smallest test`: cheapest evidence-bearing check
 - `Comparison`: baseline or incumbent to compare against
 - `Promotion rule`: evidence that advances the branch
@@ -82,6 +125,7 @@ End the pass with:
 - `Standard baselines to include`
 - `Cheap diagnostic checks`
 - `Domain-informed candidate branches`
+- `Natural role and smallest test for each candidate`
 - `Common traps and misleading signals`
 - `Expert validation signals`
 - `Promotion and kill rules`

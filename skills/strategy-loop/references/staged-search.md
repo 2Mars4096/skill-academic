@@ -27,12 +27,13 @@ Before launching a search round, freeze:
 - `Objective`: what metric is being optimized and whether higher or lower is better
 - `Baseline`: current incumbent or simple reference
 - `Search space`: parameters, ranges, and any forbidden combinations
+- `Stage grid`: the concrete values, candidate families, or sampling rule for this stage
 - `Evaluation tiers`: cheap screen, deeper confirmation, and external or holdout check
 - `Promotion rule`: what moves a region from one tier to the next
 - `Kill rule`: what drops a region early
 - `Complexity budget`: how much added complexity or cost is acceptable
 
-If any of these are missing, the round is underspecified.
+If any of these are missing, the round is underspecified. A search instruction such as "try tuning" is not defined until it names the current stage, candidate values or families, budget, and promotion rule.
 
 ## Stage A: Broad Screen
 
@@ -153,6 +154,7 @@ End each search-heavy round with:
 - `Objective and baseline`
 - `Current stage`
 - `Live regions or families`
+- `Stage grid or candidate set`
 - `Promotion and kill rules`
 - `Evidence gained`
 - `Conservative ranking`

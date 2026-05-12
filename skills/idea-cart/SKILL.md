@@ -9,15 +9,16 @@ description: Capture important ideas, decisions, constraints, risks, questions, 
 
 This skill keeps a lightweight working cart of important points that are not ready to become commitments yet.
 
-Use it to preserve signal across a long conversation or work session without turning the entire discussion into memory. The cart is a temporary buffer: items are captured, reviewed, pruned, and eventually checked out into real work or deliberately dropped.
+Use it to preserve signal across a long conversation or work session without turning the entire discussion into memory. The cart is a temporary buffer: items are captured, reviewed, pruned, and eventually checked out into real work or deliberately dropped. Addressed items leave the active cart; keep receipts, not clutter.
 
 ## Core Model
 
-- `Cart`: a short list of useful points worth preserving.
+- `Cart`: a short list of unresolved useful points worth preserving.
 - `Checkout`: converting selected cart items into committed work, such as a plan, TODO, issue, patch checklist, note, decision record, or final deliverable.
-- `Receipt`: a short record of what was checked out, implemented, moved, dropped, or left pending.
+- `Receipt`: a short record of what was checked out, implemented, moved, dropped, archived, or left pending.
+- `Archive`: an optional holding area for completed items that remain valuable as decisions or references.
 
-The cart is not a transcript, scratchpad, or permanent memory store. Keep only durable points that could change future work.
+The cart is not a transcript, scratchpad, history file, or permanent memory store. Active items should only be things that still need attention.
 
 ## When To Use
 
@@ -68,14 +69,18 @@ Last reviewed: YYYY-MM-DD
 ## Checkout Log
 
 ### YYYY-MM-DD
-- IC-001 -> moved to implementation checklist.
+- IC-001 -> done. Added idempotent checkout rule to the implementation checklist.
+
+## Archived Items
+
+Use only for completed decisions or references that are likely to matter later.
 ```
 
 ## Item Fields
 
-Keep items compact. Default fields:
+Keep active items compact. Default fields:
 
-- `Status`: `carted`, `selected`, `committed`, `done`, `dropped`, `stale`, or `question`
+- `Status`: `carted`, `selected`, `question`, or `blocked`
 - `Priority`: `high`, `medium`, or `low`
 - `Kind`: `idea`, `decision`, `constraint`, `risk`, `question`, `follow-up`, `evidence`, or `reference`
 - `Scope`: where the point applies
@@ -90,6 +95,8 @@ Only add optional fields when useful:
 - `Owner`: person or role responsible
 - `Expires`: date or condition after which the item should be reviewed or dropped
 - `Links`: files, issues, notes, or external references
+
+Terminal states such as `committed`, `done`, `dropped`, and `stale` belong in the checkout log or archive, not in the active cart.
 
 ## Add To Cart
 
@@ -125,8 +132,9 @@ Run this sequence:
 2. Dedupe and merge related items.
 3. Resolve conflicts between items; ask only if the conflict changes the outcome.
 4. Convert selected items into the requested output.
-5. Update each selected item's status.
-6. Add a checkout log entry.
+5. Remove addressed items from `Active Items`.
+6. Add a checkout log entry for each selected item.
+7. Archive only items that remain useful as decisions or references.
 
 Common checkout targets:
 
@@ -143,21 +151,22 @@ If no target is specified, default to a compact action plan and ask before editi
 
 Keep the cart useful by removing noise.
 
-- Mark an item `done` after it has been acted on.
-- Mark an item `committed` when it has been moved into a plan, issue, TODO, or implementation checklist.
-- Mark an item `dropped` when the user rejects it or it no longer fits the goal.
-- Mark an item `stale` when it may no longer apply.
-- Mark an item `question` when it cannot be acted on without a decision.
+- Keep `Active Items` limited to unresolved points.
+- Move acted-on items out of `Active Items` and record a receipt in `Checkout Log`.
+- Move important completed decisions or references to `Archived Items` only when they are likely to matter later.
+- Drop rejected or stale items from `Active Items` and record why in `Checkout Log`.
+- Mark an active item `question` or `blocked` only when it cannot be acted on without a decision or dependency.
 
-Never delete items silently. Prefer status changes plus a checkout log entry unless the user explicitly asks for cleanup.
+Never delete items silently. Prefer removing items from `Active Items` plus a checkout log entry unless the user explicitly asks for full cleanup.
 
 ## Interaction Rules
 
-- Keep the active cart small: usually `5` to `12` items.
+- Keep the active cart small: usually `5` to `12` unresolved items.
 - Preserve decisions, constraints, risks, and follow-ups; skip vague inspiration unless it affects action.
 - Use stable IDs like `IC-001`, `IC-002`, and do not renumber existing items.
 - Do not quote long passages from the conversation.
 - Do not treat carted items as commitments until checkout.
+- Do not keep completed items in `Active Items`; keep receipts instead.
 - Prefer recommendation plus concise rationale over neutral listing.
 - When checking out, force prioritization instead of carrying every item forward.
 
@@ -178,5 +187,5 @@ The cart has 6 active items: 2 high priority, 3 medium, 1 question. I would chec
 For checkout:
 
 ```markdown
-Checked out IC-001 and IC-004 into `docs/todo.md`; marked both `committed` and added a receipt entry.
+Checked out IC-001 and IC-004 into `docs/todo.md`; removed both from `Active Items` and added receipt entries.
 ```

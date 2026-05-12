@@ -86,8 +86,11 @@ Rules:
 - Keep the deck about the scholar or literature, not about the user, unless the user explicitly wants a personalized pitch deck.
 - If tying the literature to the user's agenda, keep that material near the end unless told otherwise.
 - Paper slides should feel academic and natural. Do not force identical subheadings on every paper.
+- Put paper inventories by category. For scholar decks, list all relevant papers in compact category inventory slides before selective deep dives.
+- Keep reading priorities separate from the main narrative unless the user asks to weave them into the deck.
 - For deep dives, include only the fields that help: question, setup or data, design or model, mechanism, results, tradeoffs, and conclusion.
 - When the user wants screenshots or placeholders, name the exact paper id and figure or table number.
+- Keep user-specific extension ideas at the end. The main deck should read as a literature review first and an extension pitch second.
 
 ## Writing and Layout Rules
 
@@ -96,8 +99,26 @@ Rules:
 - Give important figures their own frame if necessary.
 - Prefer category-based inventory slides over arbitrary mid-deck detours unless the user asks for them.
 - Use concise academic wording. Avoid obvious prompt-shaped labels or filler headings.
-- Avoid `--`, `:` in titles, and `multicolumn` tables if the project or user has rejected them.
+- For research-group literature reviews, use a restrained seminar style: clear, serious, and not flashy or corporate.
+- Default to single-column tiered `itemize` for analytical slides: a short framing line if useful, 2-4 top-level bullets, and 1-2 sub-bullets per top-level bullet.
+- Use single-column numbered progressions for genuinely sequential material such as stage games, mechanisms, pipelines, timing, or causal logic.
+- Do not use repeated Beamer `block` cards as the default slide grammar. Use blocks only when they clarify a real distinction.
+- Avoid 2-column layouts for normal text-heavy slides. Columns are acceptable for genuine side-by-side comparisons, collaborator lists, or diagrams where the layout improves comprehension.
+- Use bold lead-ins such as `Question`, `Setup`, `Mechanism`, `Evidence`, `Trade-off`, `Implication`, and `Takeaway`, but only where they make the slide easier to read.
+- Avoid `:`, `;`, and `--` in slide titles and visible slide prose when practical. Rewrite the line instead of relying on punctuation-heavy phrasing.
+- Avoid `\multicolumn` tables unless the existing deck already depends on them or there is no clean alternative.
+- Avoid leaving only one or two words on their own line. Rephrase, adjust manual line breaks, resize the local block, or split the frame.
 - If a slide only exists to say a weaker version of an adjacent slide, remove it.
+
+## Paper Slide Rules
+
+- For theory or game-theory papers, make the setup clear before the result: players, decisions, timing, tradeoffs, constraints, mechanism, and implication.
+- For empirical papers, state how the result is obtained before interpreting it: data, measurement, research design or specification, identification logic, and main outcomes.
+- Do not let every paper slide look like a rigid prompt template. Keep a consistent grammar, but include only the fields that matter for that paper.
+- For deep dives, build logic gradually. Each slide should answer the audience's current question and make the next question natural.
+- Remove presenter-roadmap slides from the middle of the deck. Convert them into actual presentation content or move them to notes if needed.
+- For extension slides, prefer a small number of crisp research questions plus data support. Each question should state what will be analyzed.
+- When deriving extensions from the user's research interests, use broad topical alignment rather than exposing the user's exact existing projects unless asked.
 
 ## Figure and TikZ Guardrails
 
@@ -108,6 +129,18 @@ Rules:
 - Check that the figure's visual emphasis matches the slide claim. If the point is hard to see, simplify or restyle the figure instead of adding more explanation text.
 - If a generated figure still fails after small tuning, give it more space, split the content across frames, or simplify the plot.
 - For multi-panel or dense figures, prefer legibility over compactness.
+- For screenshot figures that already contain their own caption or numbering, do not repeat the figure number, title, or caption in slide text.
+- Use figure-only or near-figure-only slides when needed. A `plain` frame is acceptable for standalone screenshot slides.
+- For result figures, add one short headline before the figure that tells the audience what to see, unless the slide is intentionally figure-only.
+- If a figure must show only one panel from a larger screenshot, crop in LaTeX with `trim`, `viewport`, `clip`, width, and height settings before creating a new image file.
+- Keep explanatory text left-aligned. Center the figure, not the takeaway sentence or itemized text.
+
+## Title Rules
+
+- Use informative functional titles. Prefer `Paper Short Name: Slide Function` when the deck accepts colon titles.
+- Avoid titles like `...: Figure`, generic `Overview`, or repeated `Category: Paper Title` patterns when a more precise function exists.
+- Good second-half title functions include `Core Idea`, `Setup`, `Stage Game`, `Research Design`, `Data`, `Mechanism`, `Main Findings`, `Calibration`, `Implications`, and `Synthesis`.
+- Keep category opener, inventory, and reference titles distinct from paper deep-dive titles.
 
 ## Compile
 
@@ -129,7 +162,7 @@ After each meaningful round of slide or figure edits:
 3. tweak slide layout or figure config
 4. compile again
 
-Do this repeatedly until the edited slides look right.
+Do this repeatedly until the edited slides look right and all intended text, tables, figures, captions, notes, and annotations show up correctly in the rendered PDF.
 
 This is especially important for:
 
@@ -137,6 +170,7 @@ This is especially important for:
 - regenerated statistical figures
 - frames with dense tables or notes
 - slides where text and figures share limited space
+- slides with manual line breaks or text wrapping that may create one- or two-word dangling lines
 
 Do not treat `it compiled` as sufficient when the visual result is still off.
 
@@ -148,6 +182,7 @@ Do not stop at a successful compile.
 - inspect the rendered deck if local tools allow it; otherwise say that visual inspection was limited
 - verify that edited text, figures, and TikZ output are actually shown properly on the slide
 - fix truncated tables, clipped figures, frame spillover, confusing ordering, unreadable labels, and unused equations or notes
+- fix awkward line wrapping, especially one- or two-word dangling lines
 - if a generated TikZ or plot frame still looks wrong, keep iterating instead of stopping at the first barely acceptable version
 
 ## References

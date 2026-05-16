@@ -20,6 +20,8 @@ Skip it when the task is domain-neutral, already has explicit expert context, or
 
 Run the tiers in order. Ask only the smallest useful subset, prefer inspecting artifacts over asking the user, and stop when you have `2` to `5` concrete candidates that can change the next round.
 
+Before keeping a question, ask: if answered, what representation, candidate, validation rule, or dispatch task would change? Drop or sharpen questions that only collect background.
+
 ### Tier 0: Trigger And Budget
 
 - Does the task have specialized metrics, artifacts, tools, constraints, or practitioner norms?
@@ -59,14 +61,25 @@ For data/modeling/benchmark/search tasks, answer this before proposing sweeps:
 
 If this contract is weak, first test representations, selectors, or diagnostics rather than deeper model or parameter sweeps.
 
-### Tier 3: Incumbents And References
+### Tier 3: Abstraction-Level Check
+
+Classify the next useful move before generating variants:
+
+- `surface_patch`: changes wording, columns, parameters, local rules, or presentation without changing the underlying process
+- `component`: replaces a separable module, feature family, data source, prompt block, model, section, or workflow step
+- `workflow`: implements an end-to-end process such as a candidate generator, research design, user flow, review pipeline, or automation path
+- `full_architecture`: creates an alternate trunk, system design, solution family, narrative structure, or operating model
+
+If recent work has only changed surface patches, ask whether the domain idea actually requires a component, workflow, or full architecture. When a practice describes a workflow, test a thin end-to-end version before judging it from one isolated piece.
+
+### Tier 4: Incumbents And References
 
 - What simple baseline would expose fake progress?
 - What incumbent method, workflow, heuristic, or tool is commonly hard to beat?
 - What public notebook, reference implementation, mature product, paper, guide, or prior run should be decomposed for parts?
 - Which pieces of the reference are trustworthy, and which may be leakage, overfit, outdated, or context-specific?
 
-### Tier 4: Practice Move Menu
+### Tier 5: Practice Move Menu
 
 Use this menu to generate practical candidates. Do not use every category; pick the ones that match the task class and artifacts.
 
@@ -81,7 +94,7 @@ Use this menu to generate practical candidates. Do not use every category; pick 
 
 For each candidate, ask: what is the cheapest variant that could produce decision-changing evidence?
 
-### Tier 5: Natural Role
+### Tier 6: Natural Role
 
 Classify each practice candidate by the role it should naturally play:
 
@@ -95,7 +108,7 @@ Classify each practice candidate by the role it should naturally play:
 
 Do not kill a candidate because it is weak as a standalone if its natural role is a feature, prior, gate, blend, postprocess, or diagnostic.
 
-### Tier 6: Test And Verification
+### Tier 7: Test And Verification
 
 For the top candidates, define:
 
@@ -106,12 +119,13 @@ For the top candidates, define:
 - What would make the result misleading?
 - Does the claim need source lookup, benchmark, experiment, or human review?
 
-### Tier 7: Missed Practice Audit
+### Tier 8: Missed Practice Audit
 
 Run this after a weak or surprising round:
 
 - What expert-standard trick, baseline, or diagnostic did we still not test?
 - Did we keep searching inside a bad representation or similarity assumption?
+- Are we decorating the current representation when we need a new component, workflow, or architecture?
 - Did we dismiss a public/reference solution too broadly instead of decomposing it into parts?
 - Did we test each idea in its natural role?
 - Did validation caution prevent cheap practical exploration that could have been made fold-safe, holdout-safe, or otherwise rigorous?
@@ -123,7 +137,9 @@ For each useful practice, record:
 
 - `Source type`: expert prior, standard baseline, common trap check, diagnostic, or needs verification
 - `Branch thesis`: why this practice might help
+- `Abstraction level`: surface_patch, component, workflow, or full_architecture
 - `Natural role`: standalone, input_or_feature, prior_or_constraint, gate_or_router, blend_or_fallback, postprocess, or diagnostic
+- `Artifact contract`: runnable, reviewable, or evidence-bearing output expected from the branch
 - `Smallest test`: cheapest evidence-bearing check
 - `Comparison`: baseline or incumbent to compare against
 - `Promotion rule`: evidence that advances the branch
@@ -134,8 +150,10 @@ For each useful practice, record:
 
 End the pass with:
 
+- `Question-quality check`: decision-changing questions kept, vague questions dropped or sharpened
 - `Expert priors worth testing`
 - `Representation contract`: comparable objects, similarity assumptions, allowed regime signals, invalid shortcuts
+- `Abstraction-level check`: surface patches, components, workflows, and full architectures under consideration
 - `Standard baselines to include`
 - `Cheap diagnostic checks`
 - `Domain-informed candidate branches`

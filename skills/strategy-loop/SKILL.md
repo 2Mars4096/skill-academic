@@ -15,7 +15,7 @@ For search-heavy work such as tuning, model or prompt selection, benchmark optim
 
 If the task is broad, underspecified, or likely to produce vague branches, read [references/operationalization-questions.md](references/operationalization-questions.md) before seeding the portfolio. Use it to tighten the problem into testable paths, better prompts, and cleaner promotion rules across domains.
 
-If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> representation contract -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
+If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> representation contract -> abstraction level -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
 
 ## When To Use
 
@@ -66,6 +66,7 @@ Question rule:
 - Prefer inspecting available context over asking the user to restate it.
 - Once routed, stop asking generic strategy questions and ask only context-specific questions tied to the decision object.
 - If the user is still brainstorming possible paths, use `path-bandit` first and return here after a small candidate portfolio exists.
+- Before asking or dispatching questions, run a quick question-quality check: if this were answered, what representation, validation rule, strategy choice, dispatch prompt, or stop/kill decision would change? Drop or rewrite questions that would only produce background context.
 
 Read [references/context-question-router.md](references/context-question-router.md) when the skill needs context-specific question packs.
 
@@ -90,7 +91,7 @@ If any of `Goal`, `Success metric`, or `Validation source` is missing, state the
 
 If these fields exist but are still too broad to drive good branching, run a short operationalization pass before moving on. Ask only the questions that would materially change path choice, validation design, or stopping rules.
 
-If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. For benchmark, tuning, modeling, domain-heavy, or specialized-workflow tasks, this pass is mandatory but bounded. Do not launch broad sweeps or child workers until the loop has named the representation assumption it is using.
+If domain knowledge could materially change the first paths, run a short domain-practice elicitation pass before seeding strategies. For benchmark, tuning, modeling, domain-heavy, or specialized-workflow tasks, this pass is mandatory but bounded. Do not launch broad sweeps or child workers until the loop has named the representation assumption and abstraction level it is using.
 
 ## 3. Run The Practice Funnel When Triggered
 
@@ -99,6 +100,8 @@ Use [references/domain-practice-elicitation.md](references/domain-practice-elici
 Minimum output:
 
 - representation contract: comparable objects, raw similarity assumption, allowed status/regime signals, and invalid shortcuts
+- abstraction-level check: whether the next work changes a surface patch, component, workflow, or full architecture
+- question-quality check: which proposed question changes the next decision, and which vague question was dropped or sharpened
 - standard baseline or incumbent
 - practical moves worth testing
 - natural role for each move
@@ -115,7 +118,9 @@ For each strategy, capture:
 - `Thesis`
 - `Status`: `live`, `parked`, `killed`, or `validated`
 - `Parent`: blank for originals, or the source strategy when mutated
+- `Abstraction level`: `surface_patch`, `component`, `workflow`, or `full_architecture`
 - `Natural role`: `standalone`, `input_or_feature`, `prior_or_constraint`, `gate_or_router`, `blend_or_fallback`, `postprocess`, or `diagnostic`
+- `Artifact contract`: the runnable, reviewable, or otherwise evidence-bearing output this path must produce
 - `First test`
 - `Expected upside`
 - `Main uncertainty`
@@ -139,13 +144,15 @@ For search-heavy tasks, define the evaluation tier for the round up front: cheap
 
 For data/modeling/benchmark searches, a round is underspecified if it cannot state what objects are comparable, what distance or similarity means, and what observable evidence would falsify that representation.
 
+If repeated surface patches produce only marginal gains or keep failing transfer, escalate abstraction before spending another round on the same patch family. Require at least one `workflow` or `full_architecture` lane when the failure suggests the current representation, process, or solution trunk is wrong.
+
 When live strategies differ mainly by configuration, thresholds, prompts, or tuning choices, do not run an unstructured sweep. Use staged search: broad first-pass coverage, explicit promotion criteria, local refinement around stable regions, and a harder confirmation pass before adoption.
 
 ## 6. Assign Complementary Roles
 
 Use separate agents or sessions only when the user explicitly wants delegation or multi-agent work and the environment supports it. Do not launch redundant workers.
 
-When delegating domain-heavy search work, assign a concrete representation assumption, owned artifact, role-of-idea test, or falsification check. Avoid vague prompts such as "explore features" or "try more configs."
+When delegating domain-heavy or architecture-level search work, assign a concrete abstraction level, representation assumption, owned artifact, role-of-idea test, or falsification check. Avoid vague prompts such as "explore features", "try more configs", or "look for improvements."
 
 Default roles:
 
@@ -250,6 +257,7 @@ Reframe when:
 - all surviving paths share the same broken assumption
 - the evaluation target was underspecified
 - the portfolio collapsed into cosmetic variants of one bad idea
+- the portfolio is only making surface patches while the evidence points to a broken workflow, architecture, or representation
 
 ## Output Shape
 
@@ -259,6 +267,7 @@ End each round with:
 - `Context lens`: project type, decision object, stage, expensive next choice
 - `Practice inventory`: only when the practice funnel was triggered; include baselines, practical moves, natural roles, and traps
 - `Representation contract`: only for data/modeling/benchmark tasks; include comparable objects, similarity assumptions, and invalid shortcuts
+- `Abstraction check`: surface patches, components, workflows, and full architectures currently represented
 - `Active strategies`
 - `This round's role allocation`
 - `Evidence gained`
@@ -278,3 +287,4 @@ End each round with:
 - For search-heavy tasks, promote regions or families that show repeatable signal, not isolated lucky winners.
 - Prefer stable plateaus over knife-edge optima when the top score difference is small.
 - Freeze promotion rules and validation tiers before looking at results whenever practical.
+- When a domain idea is naturally a workflow or architecture, test a thin end-to-end version before judging it from an isolated surface patch.

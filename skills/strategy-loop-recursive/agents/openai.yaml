@@ -1,0 +1,7 @@
+interface:
+  display_name: "Strategy Loop Recursive"
+  short_description: "Turn vague fixes into artifacts and tests"
+  default_prompt: "Use $strategy-loop-recursive to recursively concretize vague goals, symptoms, fixes, expert advice, criteria, abstractions, and tasks into concrete artifacts, tests, decisions, and dispatch-ready prompts."
+
+policy:
+  allow_implicit_invocation: true

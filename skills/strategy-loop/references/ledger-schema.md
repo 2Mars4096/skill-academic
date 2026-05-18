@@ -50,6 +50,11 @@ Optional provenance fields for domain-informed strategy loops:
 - `expert_signal`: field-specific signal, slice, stress case, or diagnostic that should influence promotion
 - `abstraction_level`: `surface_patch`, `component`, `workflow`, or `full_architecture`
 - `artifact_contract`: runnable, reviewable, or evidence-bearing output expected from this path
+- `mechanism_hypothesis`: process that would make the idea work, optional for costly or speculative paths
+- `necessary_implication`: what must be observable if the mechanism is true
+- `cheapest_proxy`: smallest plot, table, test, query, slice, or artifact that can check the implication
+- `kill_result`: proxy result that downgrades, parks, or kills the idea
+- `scale_trigger`: proxy result that justifies fuller implementation
 - `natural_role`: `standalone`, `input_or_feature`, `prior_or_constraint`, `gate_or_router`, `blend_or_fallback`, `postprocess`, or `diagnostic`
 - `tested_roles`: roles already tested for this idea
 - `natural_test`: the smallest credible test in the role where the idea should actually help
@@ -66,6 +71,7 @@ Optional provenance fields for domain-informed strategy loops:
 - Keep domain-practice provenance separate from measured reward. An expert prior should start as a reason to test, not as evidence that the branch works.
 - Do not kill a practice-derived path for weak standalone results if its `natural_role` has not been tested or explicitly rejected as too costly, invalid, or unsafe.
 - If live paths are all `surface_patch` variants and progress is marginal, reframe toward a `component`, `workflow`, or `full_architecture` path before spending another round on the same patch family.
+- For costly or expressive ideas, test `cheapest_proxy` before full implementation and record whether the proxy killed, downgraded, or promoted the path.
 
 ## Example
 

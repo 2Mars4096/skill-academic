@@ -72,14 +72,27 @@ Classify the next useful move before generating variants:
 
 If recent work has only changed surface patches, ask whether the domain idea actually requires a component, workflow, or full architecture. When a practice describes a workflow, test a thin end-to-end version before judging it from one isolated piece.
 
-### Tier 4: Incumbents And References
+### Tier 4: Mechanism Compression
+
+For costly, expressive, or high-upside ideas, do not jump straight to full implementation. Compress the idea:
+
+- `Verbal theory`: what claim or story makes the idea plausible?
+- `Mechanism hypothesis`: what process would make it work?
+- `Necessary implication`: if the mechanism is true, what must be observable?
+- `Cheapest proxy`: what small plot, table, query, regression, test, log check, mock, or slice can measure that implication?
+- `Kill result`: what proxy result would downgrade or stop the idea?
+- `Scale trigger`: what proxy result justifies a fuller workflow, architecture, model, design, or implementation?
+
+If any item is still vague, recurse once with `strategy-loop-recursive` until it names an artifact, check, or decision. Prefer high-falsifiability proxies over expressive systems that can produce ambiguous partial wins.
+
+### Tier 5: Incumbents And References
 
 - What simple baseline would expose fake progress?
 - What incumbent method, workflow, heuristic, or tool is commonly hard to beat?
 - What public notebook, reference implementation, mature product, paper, guide, or prior run should be decomposed for parts?
 - Which pieces of the reference are trustworthy, and which may be leakage, overfit, outdated, or context-specific?
 
-### Tier 5: Practice Move Menu
+### Tier 6: Practice Move Menu
 
 Use this menu to generate practical candidates. Do not use every category; pick the ones that match the task class and artifacts.
 
@@ -94,7 +107,7 @@ Use this menu to generate practical candidates. Do not use every category; pick 
 
 For each candidate, ask: what is the cheapest variant that could produce decision-changing evidence?
 
-### Tier 6: Natural Role
+### Tier 7: Natural Role
 
 Classify each practice candidate by the role it should naturally play:
 
@@ -108,7 +121,7 @@ Classify each practice candidate by the role it should naturally play:
 
 Do not kill a candidate because it is weak as a standalone if its natural role is a feature, prior, gate, blend, postprocess, or diagnostic.
 
-### Tier 7: Test And Verification
+### Tier 8: Test And Verification
 
 For the top candidates, define:
 
@@ -119,13 +132,14 @@ For the top candidates, define:
 - What would make the result misleading?
 - Does the claim need source lookup, benchmark, experiment, or human review?
 
-### Tier 8: Missed Practice Audit
+### Tier 9: Missed Practice Audit
 
 Run this after a weak or surprising round:
 
 - What expert-standard trick, baseline, or diagnostic did we still not test?
 - Did we keep searching inside a bad representation or similarity assumption?
 - Are we decorating the current representation when we need a new component, workflow, or architecture?
+- Did we implement a large idea before testing its weakest necessary consequence?
 - Did we dismiss a public/reference solution too broadly instead of decomposing it into parts?
 - Did we test each idea in its natural role?
 - Did validation caution prevent cheap practical exploration that could have been made fold-safe, holdout-safe, or otherwise rigorous?
@@ -140,6 +154,7 @@ For each useful practice, record:
 - `Abstraction level`: surface_patch, component, workflow, or full_architecture
 - `Natural role`: standalone, input_or_feature, prior_or_constraint, gate_or_router, blend_or_fallback, postprocess, or diagnostic
 - `Artifact contract`: runnable, reviewable, or evidence-bearing output expected from the branch
+- `Mechanism compression`: verbal theory, mechanism, necessary implication, cheapest proxy, kill result, and scale trigger when useful
 - `Smallest test`: cheapest evidence-bearing check
 - `Comparison`: baseline or incumbent to compare against
 - `Promotion rule`: evidence that advances the branch
@@ -154,6 +169,7 @@ End the pass with:
 - `Expert priors worth testing`
 - `Representation contract`: comparable objects, similarity assumptions, allowed regime signals, invalid shortcuts
 - `Abstraction-level check`: surface patches, components, workflows, and full architectures under consideration
+- `Mechanism compression`: idea -> mechanism -> necessary implication -> cheapest proxy -> kill result -> scale trigger
 - `Standard baselines to include`
 - `Cheap diagnostic checks`
 - `Domain-informed candidate branches`

@@ -13,6 +13,8 @@ The goal is not more questions. The goal is to recursively convert vague problem
 
 If `strategy-loop` is also active, keep its portfolio, ledger, staged search, representation contract, and abstraction-level gates. Add the recursive checks below before seeding strategies, before dispatching children, and after weak rounds.
 
+When `strategy-loop` asks for mechanism compression, use this skill only if the idea, mechanism, necessary implication, cheapest proxy, kill result, or scale trigger is still vague after one pass.
+
 ## Core Rule
 
 For any important goal, symptom, proposed fix, criterion, or phrase that is still abstract, ask:
@@ -61,6 +63,19 @@ When a fix is proposed, recurse on why it should work:
 - What cheaper diagnostic can separate root cause from symptom?
 - What observation would prove the current explanation wrong?
 - If this fix works only locally, what transfer or deployment risk remains?
+
+### Mechanism Compression
+
+For a costly, expressive, or high-upside idea, recurse through:
+
+1. `Verbal theory`: what claim or story makes this plausible?
+2. `Mechanism hypothesis`: what process would make it work?
+3. `Necessary implication`: if the mechanism is true, what must be observable?
+4. `Cheapest proxy`: what plot, table, query, regression, test, log check, mock, or slice can measure that implication?
+5. `Kill result`: what proxy result would downgrade or stop the idea?
+6. `Scale trigger`: what proxy result justifies a fuller implementation?
+
+If any answer is still vague, recurse once by naming the exact artifact, metric, slice, command, file, or decision. Do not build the expressive version until the cheap proxy survives.
 
 ### Levers And Options
 
@@ -170,6 +185,8 @@ For each recursive pass, report:
 - `First concretization`
 - `Second concretization if needed`
 - `Artifact or test`
+- `Kill result`
+- `Scale trigger`
 - `Decision changed`
 - `Dispatch-ready task`
 - `Drop or keep`

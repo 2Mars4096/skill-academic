@@ -17,6 +17,8 @@ If the task is broad, underspecified, or likely to produce vague branches, read 
 
 If the task likely has field-specific practices, standard baselines, common traps, or expert diagnostics, read [references/domain-practice-elicitation.md](references/domain-practice-elicitation.md) before seeding the portfolio. Run its tiered practice funnel to narrow from task class -> representation contract -> abstraction level -> standard baselines -> practical moves -> natural integration roles. Use the result as candidates to test, not as facts to trust blindly.
 
+For costly or high-upside ideas, compress the idea before implementation: verbal theory -> mechanism hypothesis -> necessary observable implication -> cheapest measurable proxy -> kill result -> implementation trigger. Use `strategy-loop-recursive` only when any link in that chain remains vague after one pass.
+
 ## When To Use
 
 - managing `2` or more candidate strategies over repeated rounds
@@ -102,6 +104,7 @@ Minimum output:
 - representation contract: comparable objects, raw similarity assumption, allowed status/regime signals, and invalid shortcuts
 - abstraction-level check: whether the next work changes a surface patch, component, workflow, or full architecture
 - question-quality check: which proposed question changes the next decision, and which vague question was dropped or sharpened
+- mechanism compression: mechanism, necessary implication, cheapest proxy, kill result, and implementation trigger for costly ideas
 - standard baseline or incumbent
 - practical moves worth testing
 - natural role for each move
@@ -121,6 +124,7 @@ For each strategy, capture:
 - `Abstraction level`: `surface_patch`, `component`, `workflow`, or `full_architecture`
 - `Natural role`: `standalone`, `input_or_feature`, `prior_or_constraint`, `gate_or_router`, `blend_or_fallback`, `postprocess`, or `diagnostic`
 - `Artifact contract`: the runnable, reviewable, or otherwise evidence-bearing output this path must produce
+- `Mechanism test`: mechanism hypothesis, necessary implication, cheap proxy, and kill result when the path is costly or speculative
 - `First test`
 - `Expected upside`
 - `Main uncertainty`
@@ -145,6 +149,8 @@ For search-heavy tasks, define the evaluation tier for the round up front: cheap
 For data/modeling/benchmark searches, a round is underspecified if it cannot state what objects are comparable, what distance or similarity means, and what observable evidence would falsify that representation.
 
 If repeated surface patches produce only marginal gains or keep failing transfer, escalate abstraction before spending another round on the same patch family. Require at least one `workflow` or `full_architecture` lane when the failure suggests the current representation, process, or solution trunk is wrong.
+
+Do not scale an expressive or expensive implementation until a cheap necessary implication has survived. During discovery, prefer high-falsifiability probes over powerful systems that can ambiguously "sort of work."
 
 When live strategies differ mainly by configuration, thresholds, prompts, or tuning choices, do not run an unstructured sweep. Use staged search: broad first-pass coverage, explicit promotion criteria, local refinement around stable regions, and a harder confirmation pass before adoption.
 
@@ -268,6 +274,7 @@ End each round with:
 - `Practice inventory`: only when the practice funnel was triggered; include baselines, practical moves, natural roles, and traps
 - `Representation contract`: only for data/modeling/benchmark tasks; include comparable objects, similarity assumptions, and invalid shortcuts
 - `Abstraction check`: surface patches, components, workflows, and full architectures currently represented
+- `Mechanism compression`: for costly ideas, include mechanism, necessary implication, cheapest proxy, kill result, and whether recursion was needed
 - `Active strategies`
 - `This round's role allocation`
 - `Evidence gained`
@@ -288,3 +295,4 @@ End each round with:
 - Prefer stable plateaus over knife-edge optima when the top score difference is small.
 - Freeze promotion rules and validation tiers before looking at results whenever practical.
 - When a domain idea is naturally a workflow or architecture, test a thin end-to-end version before judging it from an isolated surface patch.
+- Test the weakest necessary consequence before the full idea; kill or downgrade ideas that fail their cheap proxy unless there is a clear reason the proxy was invalid.

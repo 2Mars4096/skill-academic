@@ -35,6 +35,22 @@ Default recursion budget:
 - maximum `3` vague phrases per pass
 - stop as soon as the answer changes the problem definition, fix, validation rule, artifact, dispatch prompt, or stop decision
 
+## Bounded Investigation
+
+Use bounded breadth, not fixed breadth.
+
+Breadth:
+
+- Start with the smallest live set of directions, causes, mechanisms, or implementation paths that covers the main competing explanations.
+- Add a branch only when evidence reveals a materially distinct cause, mechanism, risk, or solution path that could change the decision.
+- Merge or drop branches that are redundant, unsupported, low impact, outside scope, or decision-irrelevant.
+
+Depth:
+
+- Investigate each live branch only until it can be promoted, killed, merged, deferred, or turned into an implementation or validation task.
+- Recurse only when a discovered issue materially affects correctness, security, performance, maintainability, validity, cost, transfer risk, or requested user-visible behavior.
+- Stop expanding a branch when more detail no longer changes the next fix, test, dispatch prompt, or stop decision.
+
 ## Where To Recurse
 
 ### Problem Definition

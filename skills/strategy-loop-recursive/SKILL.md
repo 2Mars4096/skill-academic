@@ -29,6 +29,8 @@ If the answer is still vague, recurse once:
 - Name the exact object, file, experiment, prompt, metric, slice, artifact, workflow step, or user-visible behavior.
 - If that still cannot be named, drop the question or mark it as background only.
 
+Infer necessary substeps from the goal, repository context, and acceptance criteria. Do not skip required work just because the user did not explicitly list it. Keep inferred work scoped to what is necessary for the requested outcome, and document important assumptions before finalizing.
+
 Default recursion budget:
 
 - maximum `2` levels deep

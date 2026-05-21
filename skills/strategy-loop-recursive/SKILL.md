@@ -24,7 +24,7 @@ For any important goal, symptom, proposed fix, criterion, or phrase that is stil
 3. What test would falsify it?
 4. What fix, decision, or dispatch task changes because of the answer?
 
-If the answer is still vague, recurse once:
+If the answer is still vague, recurse locally:
 
 - Name the exact object, file, experiment, prompt, metric, slice, artifact, workflow step, or user-visible behavior.
 - If that still cannot be named, drop the question or mark it as background only.
@@ -33,9 +33,67 @@ Infer necessary substeps from the goal, repository context, and acceptance crite
 
 Default recursion budget:
 
-- maximum `2` levels deep
-- maximum `3` vague phrases per pass
+- hard maximum `10` recursive steps per task
+- hard maximum `10` live investigation branches
+- do not treat `10` as a target; stop earlier when a branch becomes decision-ready or decision-irrelevant
 - stop as soon as the answer changes the problem definition, fix, validation rule, artifact, dispatch prompt, or stop decision
+
+## Recursion Hooks
+
+Use these hooks to make sure recursion actually happens instead of remaining an instruction the agent forgets.
+
+### Clarity Stop Hook
+
+Before opening new breadth or depth, ask whether the current evidence is already sufficient to choose the next fix, test, dispatch prompt, or stop decision. If yes, do not start another branch or recursive step; act on the clear decision and record the assumption.
+
+### Entry Hook
+
+Before investigating or implementing, scan the request for vague goals, symptoms, fixes, criteria, expert archetypes, or abstraction words. If any are decision-relevant, create a `Recursive Checkpoint` with:
+
+- `Trigger`: phrase, claim, symptom, or proposed fix that needs concretization
+- `Concrete meaning`: project-specific interpretation
+- `Artifact/test`: what would show it is true or solved
+- `Decision changed`: what action depends on the answer
+
+If no recursion is needed, explicitly record `Recursive Checkpoint: not needed` and why.
+
+### Branch Hook
+
+Before adding or expanding an investigation branch, ask whether it changes the decision. Keep the branch only if it names:
+
+- distinct cause, mechanism, risk, or solution path
+- evidence needed next
+- stop condition
+
+Merge, defer, or drop the branch otherwise.
+
+### Mechanism Hook
+
+Before implementing an expressive, costly, or high-upside idea, require:
+
+- mechanism hypothesis
+- necessary implication
+- cheapest proxy
+- kill result
+- scale trigger
+
+If any item is vague, recurse once before implementation.
+
+### Dispatch Hook
+
+Before delegating, each child task must include:
+
+- hypothesis
+- abstraction level
+- owned artifact or file area
+- falsification check
+- return contract
+
+Do not dispatch a child whose prompt cannot pass this hook.
+
+### Finalization Hook
+
+Before finalizing, check whether all recursive triggers were resolved, dropped, or explicitly deferred. State important assumptions and any remaining vague item that did not affect the requested outcome.
 
 ## Bounded Investigation
 
@@ -46,12 +104,16 @@ Breadth:
 - Start with the smallest live set of directions, causes, mechanisms, or implementation paths that covers the main competing explanations.
 - Add a branch only when evidence reveals a materially distinct cause, mechanism, risk, or solution path that could change the decision.
 - Merge or drop branches that are redundant, unsupported, low impact, outside scope, or decision-irrelevant.
+- Keep at most `10` live branches; if more seem plausible, rank by expected decision value and park the rest.
+- Do not add breadth when the current live set is already sufficient to choose the next action.
 
 Depth:
 
 - Investigate each live branch only until it can be promoted, killed, merged, deferred, or turned into an implementation or validation task.
 - Recurse only when a discovered issue materially affects correctness, security, performance, maintainability, validity, cost, transfer risk, or requested user-visible behavior.
 - Stop expanding a branch when more detail no longer changes the next fix, test, dispatch prompt, or stop decision.
+- Keep at most `10` recursive steps across the task; after that, summarize unresolved uncertainty and choose the best next evidence-bearing action.
+- Do not add depth when the next action is already clear enough for the requested outcome.
 
 ## Where To Recurse
 
@@ -199,6 +261,7 @@ Avoid child prompts like "explore features", "think of improvements", or "try mo
 
 For each recursive pass, report:
 
+- `Recursive Checkpoint`
 - `Vague goal, symptom, fix, criterion, or claim`
 - `First concretization`
 - `Second concretization if needed`

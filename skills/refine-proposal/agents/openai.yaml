@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refine Proposal"
+  short_description: "Improve proposals through anchored questions"
+  default_prompt: "Use $refine-proposal to turn this proposal draft into an interactive, versioned review artifact."

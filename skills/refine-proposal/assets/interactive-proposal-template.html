@@ -1,0 +1,1468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Proposal Review</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --surface: oklch(95% 0.012 88);
+      --paper: oklch(98% 0.006 88);
+      --paper-soft: oklch(96% 0.009 88);
+      --ink: oklch(22% 0.017 78);
+      --muted: oklch(48% 0.025 76);
+      --faint: oklch(68% 0.021 80);
+      --line: oklch(82% 0.018 84);
+      --line-strong: oklch(58% 0.026 78);
+      --accent: oklch(46% 0.116 33);
+      --accent-soft: oklch(91% 0.032 35);
+      --blue: oklch(42% 0.078 222);
+      --blue-soft: oklch(92% 0.023 221);
+      --green: oklch(42% 0.066 143);
+      --green-soft: oklch(92% 0.026 143);
+      --shadow: 0 18px 42px oklch(26% 0.02 75 / 0.12);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --s-1: 4px;
+      --s-2: 8px;
+      --s-3: 12px;
+      --s-4: 16px;
+      --s-5: 24px;
+      --s-6: 36px;
+      --s-7: 56px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, oklch(22% 0.017 78 / 0.035) 1px, transparent 1px),
+        var(--surface);
+      background-size: 32px 100%;
+      font-family: var(--sans);
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      min-height: 36px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0 var(--s-3);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line-strong);
+    }
+
+    button:hover,
+    button:focus-visible,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      min-height: 100vh;
+    }
+
+    .paper {
+      max-width: 980px;
+      margin: var(--s-6) auto var(--s-7);
+      padding: var(--s-7) min(6vw, 72px);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .title-block {
+      padding-bottom: var(--s-6);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .kicker,
+    .label,
+    th,
+    .mini,
+    .thread-id,
+    .section-number {
+      font: 760 0.72rem/1.25 var(--mono);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      color: var(--accent);
+      margin-bottom: var(--s-2);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 18ch;
+      font-size: 2.8rem;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 1rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p,
+    li,
+    td,
+    dd {
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .title-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      margin-top: var(--s-4);
+      color: var(--muted);
+      font: 720 0.75rem/1.35 var(--mono);
+    }
+
+    .title-meta span {
+      border-top: 1px solid var(--line);
+      padding-top: var(--s-2);
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-3);
+      padding: var(--s-4) 0 var(--s-2);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .toc a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .proposal-section {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: var(--s-5);
+      padding: var(--s-6) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-number {
+      color: var(--accent);
+      padding-top: 0.3rem;
+    }
+
+    .section-body {
+      display: grid;
+      gap: var(--s-4);
+      min-width: 0;
+    }
+
+    .section-lead {
+      max-width: 74ch;
+      color: var(--muted);
+    }
+
+    .abstract {
+      max-width: 78ch;
+      font-size: 1.06rem;
+      line-height: 1.65;
+    }
+
+    .summary-lines {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      margin-top: var(--s-4);
+      border-top: 1px solid var(--line);
+    }
+
+    .summary-lines dt,
+    .summary-lines dd {
+      margin: 0;
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .summary-lines dt {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .summary-lines dd {
+      max-width: 70ch;
+    }
+
+    .memo-block {
+      display: grid;
+      gap: var(--s-2);
+      max-width: 78ch;
+      padding-top: var(--s-2);
+    }
+
+    .memo-block h3 {
+      color: var(--green);
+    }
+
+    .memo-block p {
+      max-width: 74ch;
+    }
+
+    .inline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      margin: var(--s-1) 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font: 720 0.78rem/1.2 var(--mono);
+    }
+
+    .inline-tags li {
+      border-bottom: 1px solid var(--line-strong);
+      line-height: 1.25;
+    }
+
+    .question-list {
+      display: grid;
+      gap: var(--s-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      max-width: 80ch;
+    }
+
+    .question-list li {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: var(--s-3);
+      padding-bottom: var(--s-4);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rq-label {
+      color: var(--accent);
+      font: 860 0.85rem/1.35 var(--mono);
+    }
+
+    .question-list strong {
+      display: block;
+      margin-bottom: var(--s-2);
+    }
+
+    .concept-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: stretch;
+      gap: var(--s-2);
+      padding: var(--s-3);
+      background: var(--blue-soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .concept-flow span {
+      display: grid;
+      gap: var(--s-1);
+      align-content: start;
+      min-height: 96px;
+      padding: var(--s-2);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .concept-flow b {
+      color: var(--blue);
+      font: 860 0.78rem/1.2 var(--mono);
+    }
+
+    .formula-line {
+      overflow-x: auto;
+      padding: var(--s-3) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--blue);
+      font: 760 0.96rem/1.55 var(--mono);
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: var(--s-3) var(--s-3) var(--s-3) 0;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--accent);
+      background: var(--paper-soft);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .split-list {
+      columns: 2;
+      column-gap: var(--s-6);
+      max-width: 82ch;
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    .split-list li {
+      break-inside: avoid;
+      margin-bottom: var(--s-2);
+    }
+
+    .roadmap {
+      margin: 0;
+      padding-left: 1.15rem;
+      max-width: 76ch;
+    }
+
+    .roadmap li {
+      padding: var(--s-2) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .review-console {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      background: var(--paper-soft);
+      border-left: 1px solid var(--line-strong);
+      padding: var(--s-5);
+      box-shadow: var(--shadow);
+    }
+
+    .console-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-3);
+      padding-bottom: var(--s-4);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: var(--s-4);
+    }
+
+    .console-header h2 {
+      font-size: 1.08rem;
+    }
+
+    .mini {
+      color: var(--muted);
+    }
+
+    .target-box {
+      min-height: 76px;
+      padding: var(--s-3) 0;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: var(--s-4);
+    }
+
+    .target-label {
+      color: var(--accent);
+      font: 820 0.7rem/1.2 var(--mono);
+      text-transform: uppercase;
+    }
+
+    .target-text {
+      margin-top: var(--s-2);
+      color: var(--ink);
+      font-size: 0.9rem;
+      line-height: 1.42;
+    }
+
+    .field {
+      display: grid;
+      gap: var(--s-2);
+      margin: var(--s-3) 0;
+    }
+
+    .field label {
+      color: var(--muted);
+      font: 820 0.7rem/1.2 var(--mono);
+      text-transform: uppercase;
+    }
+
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      background: var(--paper);
+      color: var(--ink);
+      padding: 10px;
+      resize: vertical;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-2);
+      margin: var(--s-4) 0;
+    }
+
+    .button-row button:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .threads {
+      display: grid;
+      gap: var(--s-3);
+      margin-top: var(--s-4);
+    }
+
+    .thread {
+      border-top: 1px solid var(--line-strong);
+      padding-top: var(--s-3);
+    }
+
+    .thread-top {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--s-2);
+      align-items: start;
+      margin-bottom: var(--s-2);
+    }
+
+    .thread-id {
+      color: var(--blue);
+    }
+
+    .thread p {
+      margin: var(--s-2) 0;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .thread textarea,
+    .thread select,
+    .thread button {
+      margin-top: var(--s-2);
+    }
+
+    .thread-badge {
+      display: inline-grid;
+      place-items: center;
+      min-width: 20px;
+      height: 20px;
+      margin-left: var(--s-2);
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--paper);
+      font: 820 0.66rem/1 var(--mono);
+      vertical-align: middle;
+    }
+
+    .askable {
+      position: relative;
+      transition: background-color 160ms cubic-bezier(0.19, 1, 0.22, 1), outline-color 160ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .askable:hover {
+      outline: 2px solid oklch(46% 0.116 33 / 0.32);
+      outline-offset: 3px;
+    }
+
+    .askable.is-selected {
+      background: var(--accent-soft);
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .file-input {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1080px) {
+      .shell {
+        display: block;
+      }
+
+      .paper {
+        margin: 0;
+        max-width: none;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .review-console {
+        position: relative;
+        height: auto;
+        border-left: 0;
+        border-top: 1px solid var(--line-strong);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .paper {
+        padding: var(--s-5) var(--s-4);
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+
+      .proposal-section,
+      .summary-lines,
+      .question-list li {
+        grid-template-columns: 1fr;
+        gap: var(--s-2);
+      }
+
+      .concept-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .split-list {
+        columns: 1;
+      }
+
+      .button-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body data-document-id="research-proposal-review" data-version="v001">
+  <div class="shell">
+    <main class="paper" id="proposalDocument" data-review-root>
+      <header class="title-block">
+        <div class="kicker" data-qa-id="artifact-purpose">Research proposal</div>
+        <h1 data-qa-id="proposal-title">Working Title For The Research Project</h1>
+        <div class="title-meta" data-qa-id="proposal-meta">
+          <span id="versionLabel">v001</span>
+          <span>working draft</span>
+          <span>2026-05-26</span>
+        </div>
+        <nav class="toc" aria-label="Proposal sections">
+          <a href="#idea">idea</a>
+          <a href="#question">question</a>
+          <a href="#setting">setting</a>
+          <a href="#data">data</a>
+          <a href="#design">design</a>
+          <a href="#validity">validity</a>
+          <a href="#extensions">extensions</a>
+          <a href="#roadmap">roadmap</a>
+        </nav>
+      </header>
+
+      <section class="proposal-section" id="idea" aria-labelledby="idea-title">
+        <div class="section-number">01</div>
+        <div class="section-body">
+          <h2 id="idea-title" data-qa-id="idea-heading">Core Idea And Contribution</h2>
+          <p class="abstract" data-qa-id="abstract-main">This project studies whether [institutional or market shock] changes [operational, behavioral, political, or economic outcome] for [unit of analysis]. The proposal is built around a concrete setting, a clearly observed source of variation, and a comparison that can separate the main explanation from plausible alternatives.</p>
+          <dl class="summary-lines">
+            <dt data-qa-id="summary-question-label">Question</dt>
+            <dd data-qa-id="summary-question">How does [X] affect [Y] for [unit] in [setting]?</dd>
+            <dt data-qa-id="summary-contribution-label">Contribution</dt>
+            <dd data-qa-id="summary-contribution">The project contributes by connecting a previously under-measured institutional shock to measurable outcomes, mechanisms, and decision-relevant consequences.</dd>
+            <dt data-qa-id="summary-design-label">Design</dt>
+            <dd data-qa-id="summary-design">The main design compares exposed and less-exposed units before and after the shock, with attention to local comparability, timing, and alternative explanations.</dd>
+            <dt data-qa-id="summary-risk-label">Main Risk</dt>
+            <dd data-qa-id="summary-risk">The key risk is that exposure may correlate with pre-existing geography, selection, or strategic assignment rather than the shock itself.</dd>
+            <dt data-qa-id="summary-extension-label">Extension</dt>
+            <dd data-qa-id="summary-extension">Add field-specific theory, institutional detail, data construction, measurement validation, qualitative evidence, ethics, simulation, or appendix material only where it strengthens the proposal's logic.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="motivation" aria-labelledby="motivation-title">
+        <div class="section-number">02</div>
+        <div class="section-body">
+          <h2 id="motivation-title" data-qa-id="motivation-heading">Motivation, Puzzle, And Benchmark</h2>
+          <div class="memo-block" data-qa-id="motivation-problem">
+            <h3 data-qa-id="motivation-problem-heading">Motivating Problem</h3>
+            <p data-qa-id="motivation-problem-main">The project starts from a tension: [expected pattern] does not fully explain [observed pattern]. The setting matters because the units are exposed to a change in rules, representation, markets, technology, or organization without necessarily changing their underlying location or identity.</p>
+            <ul class="inline-tags" data-qa-id="motivation-tags">
+              <li>observable puzzle</li>
+              <li>specific setting</li>
+              <li>stakeholder relevance</li>
+            </ul>
+          </div>
+          <div class="memo-block" data-qa-id="literature-benchmark">
+            <h3 data-qa-id="literature-heading">Benchmark Literature</h3>
+            <p data-qa-id="literature-main">The closest benchmark is [paper, theory, method, policy debate, or managerial decision]. That benchmark establishes [known relationship], but leaves open whether the same logic holds for [new unit, mechanism, setting, or outcome].</p>
+          </div>
+          <div class="memo-block" data-qa-id="contribution-claim">
+            <h3 data-qa-id="contribution-heading">Contribution Claim</h3>
+            <p data-qa-id="contribution-main">The contribution is not that every unit is affected. The sharper claim is that the shock matters for units with [exposure condition], because it changes [relationship, constraint, risk, incentive, information, or access channel].</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="question" aria-labelledby="question-title">
+        <div class="section-number">03</div>
+        <div class="section-body">
+          <h2 id="question-title" data-qa-id="question-heading">Research Questions And Hypotheses</h2>
+          <ol class="question-list">
+            <li data-qa-id="rq1">
+              <span class="rq-label">RQ1</span>
+              <div>
+                <strong data-qa-id="rq1-question">Does [X] change the primary outcome [Y]?</strong>
+                <p data-qa-id="rq1-hypothesis">Hypothesis: exposed units experience [directional change] in [Y] relative to comparable units, especially where exposure is stronger or more decision-relevant.</p>
+              </div>
+            </li>
+            <li data-qa-id="rq2">
+              <span class="rq-label">RQ2</span>
+              <div>
+                <strong data-qa-id="rq2-question">Which mechanism links the shock to the outcome?</strong>
+                <p data-qa-id="rq2-hypothesis">Hypothesis: the effect operates through [relationship disruption, uncertainty, access, information, coordination, investment, or supply-chain adjustment], and should be visible in mechanism-specific outcomes.</p>
+              </div>
+            </li>
+            <li data-qa-id="rq3">
+              <span class="rq-label">RQ3</span>
+              <div>
+                <strong data-qa-id="rq3-question">Which units respond most strongly?</strong>
+                <p data-qa-id="rq3-hypothesis">Hypothesis: effects are concentrated among units with high dependence on the affected institution, high adjustment costs, high public exposure, or low ability to diversify.</p>
+              </div>
+            </li>
+          </ol>
+          <div class="concept-flow" data-qa-id="conceptual-model">
+            <span data-qa-id="flow-setting"><b>Setting</b>Institution and population where the shock has meaning.</span>
+            <span data-qa-id="flow-x"><b>X</b>Shock, treatment, or exposure that varies across units.</span>
+            <span data-qa-id="flow-m"><b>M</b>Mechanism that should leave an observable trace.</span>
+            <span data-qa-id="flow-y"><b>Y</b>Primary outcome and secondary outcomes.</span>
+            <span data-qa-id="flow-test"><b>Test</b>Comparison that could weaken the explanation.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="setting" aria-labelledby="setting-title">
+        <div class="section-number">04</div>
+        <div class="section-body">
+          <h2 id="setting-title" data-qa-id="setting-heading">Institutional Setting And Source Of Variation</h2>
+          <p class="section-lead" data-qa-id="setting-lead">A credible proposal explains why the setting generates variation and why that variation is meaningful for the unit of analysis. The institutional details should support the design rather than become a detached background section.</p>
+          <dl class="summary-lines">
+            <dt data-qa-id="setting-rules-label">Rules</dt>
+            <dd data-qa-id="setting-rules">The shock is generated by [legal rule, policy cycle, platform change, administrative assignment, market rule, or organizational process].</dd>
+            <dt data-qa-id="setting-timing-label">Timing</dt>
+            <dd data-qa-id="setting-timing">Treatment begins when the relevant new condition is active for the unit, not merely when the policy or map is announced.</dd>
+            <dt data-qa-id="setting-unit-label">Unit</dt>
+            <dd data-qa-id="setting-unit">The main unit is [establishment, firm, person, school, document, place, event, dyad, or cluster], observed over [time window].</dd>
+            <dt data-qa-id="setting-exogeneity-label">Exogeneity Limit</dt>
+            <dd data-qa-id="setting-exogeneity">The setting is promising because the unit can be exposed without choosing the exposure, but the design must still address geographic sorting, strategic assignment, and local trends.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="data" aria-labelledby="data-title">
+        <div class="section-number">05</div>
+        <div class="section-body">
+          <h2 id="data-title" data-qa-id="data-heading">Data, Linkage, And Measurement</h2>
+          <p class="section-lead" data-qa-id="data-lead">The data section should let a reviewer see the raw object, the link across sources, and the construction burden. A named dataset without unit, coverage, access, and construction rules is not enough.</p>
+          <div class="table-wrap">
+            <table data-qa-id="data-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Unit</th>
+                  <th>Key Fields</th>
+                  <th>Use In Design</th>
+                  <th>Main Limitation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="data-row-main">
+                  <td>Main panel or administrative data.</td>
+                  <td>Unit-year or event-level observation.</td>
+                  <td>Identifier, location, timing, baseline traits, outcomes.</td>
+                  <td>Build the main outcome panel and treatment exposure.</td>
+                  <td>Coverage, measurement error, missing years, or construction burden.</td>
+                </tr>
+                <tr data-qa-id="data-row-boundary">
+                  <td>Boundary, policy, assignment, or institutional file.</td>
+                  <td>Geography, rule, program, group, or organization.</td>
+                  <td>Assignment, date, actor, intensity, and eligibility.</td>
+                  <td>Define treatment, comparison, timing, and local controls.</td>
+                  <td>Version alignment and uncertainty near boundaries or thresholds.</td>
+                </tr>
+                <tr data-qa-id="data-row-mechanism">
+                  <td>Mechanism or auxiliary source.</td>
+                  <td>Firm, person, relationship, transaction, text, or location.</td>
+                  <td>Channel outcome, exposure intensity, disclosure, links, or behavior.</td>
+                  <td>Distinguish the proposed mechanism from alternatives.</td>
+                  <td>Selection into observability and proxy validity.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="memo-block" data-qa-id="linking-design">
+            <h3 data-qa-id="linking-heading">Linking Design</h3>
+            <p data-qa-id="linking-main">The core file links [unit] to [exposure source] using [location, identifier, name, time, network relation, or merge key]. The proposal should distinguish units whose underlying location or identity is stable from units that move, enter, exit, or change composition.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="treatment" aria-labelledby="treatment-title">
+        <div class="section-number">06</div>
+        <div class="section-body">
+          <h2 id="treatment-title" data-qa-id="treatment-heading">Treatment Definitions And Controls</h2>
+          <p class="section-lead" data-qa-id="treatment-lead">A strong proposal separates simple exposure from mechanism-specific shocks. It also states what untreated or less-treated units represent.</p>
+          <div class="table-wrap">
+            <table data-qa-id="treatment-table">
+              <thead>
+                <tr>
+                  <th>Treatment</th>
+                  <th>Definition</th>
+                  <th>Interpretation</th>
+                  <th>Best Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="treatment-row-1">
+                  <td>Baseline exposure</td>
+                  <td>Unit becomes newly exposed because [boundary, rule, assignment, or eligibility] changes.</td>
+                  <td>Captures the average effect of institutional reassignment.</td>
+                  <td>Stable units in the same local market, pre-period group, industry, or risk set.</td>
+                </tr>
+                <tr data-qa-id="treatment-row-2">
+                  <td>Attribute shock</td>
+                  <td>Exposure changes along party, seniority, committee, intensity, quality, price, access, or compatibility.</td>
+                  <td>Tests a more specific mechanism.</td>
+                  <td>Units with exposure changes but not the same attribute change.</td>
+                </tr>
+                <tr data-qa-id="treatment-row-3">
+                  <td>Unexpected assignment</td>
+                  <td>Actual exposure differs from the assignment expected under feasible alternatives or propensity scores.</td>
+                  <td>Reduces concern that exposure simply reflects geography or selection.</td>
+                  <td>Units with similar predicted exposure under counterfactual assignments.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="design" aria-labelledby="design-title">
+        <div class="section-number">07</div>
+        <div class="section-body">
+          <h2 id="design-title" data-qa-id="design-heading">Identification And Empirical Strategy</h2>
+          <p class="section-lead" data-qa-id="design-lead">The identification claim should be modest and explicit: conditional on geography, fixed traits, pre-trends, and institutional constraints, exposed and comparison units would have followed similar outcome paths absent the shock.</p>
+          <div class="formula-line" data-qa-id="event-study-formula">Y_it = unit FE + local-year FE + industry-year FE + sum_k beta_k Exposure_i x EventTime_k + error_it</div>
+          <div class="table-wrap">
+            <table data-qa-id="method-table">
+              <thead>
+                <tr>
+                  <th>Design</th>
+                  <th>Purpose</th>
+                  <th>What Must Be Shown</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="method-event-study">
+                  <td>Event study</td>
+                  <td>Trace dynamics before and after the shock.</td>
+                  <td>No strong pre-trends and effects begin after the exposure becomes active.</td>
+                </tr>
+                <tr data-qa-id="method-did">
+                  <td>Difference-in-differences</td>
+                  <td>Estimate the baseline average change.</td>
+                  <td>Comparable controls, defensible fixed effects, and stable sample construction.</td>
+                </tr>
+                <tr data-qa-id="method-local">
+                  <td>Boundary, threshold, or local comparison</td>
+                  <td>Compare nearby or nearly eligible units.</td>
+                  <td>Results survive narrow windows and local fixed effects.</td>
+                </tr>
+                <tr data-qa-id="method-counterfactual">
+                  <td>Counterfactual assignment or machine learning adjustment</td>
+                  <td>Model assignment propensity and heterogeneity.</td>
+                  <td>Used as support, not as the only source of identification.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="memo-block" data-qa-id="claim-scope">
+            <h3 data-qa-id="claim-scope-heading">Scope Of Claim</h3>
+            <p data-qa-id="claim-scope-main">If the comparison is descriptive, the proposal should make a descriptive claim. If the variation supports causal interpretation, the proposal should name the identifying assumption and the strongest reason a reviewer might reject it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="section-number">08</div>
+        <div class="section-body">
+          <h2 id="outcomes-title" data-qa-id="outcomes-heading">Outcomes, Mechanisms, And Heterogeneity</h2>
+          <div class="table-wrap">
+            <table data-qa-id="outcomes-table">
+              <thead>
+                <tr>
+                  <th>Layer</th>
+                  <th>Measures</th>
+                  <th>Reason To Include</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="outcome-main">
+                  <td>Main outcomes</td>
+                  <td>Growth, performance, survival, adoption, capacity, behavior, quality, or movement.</td>
+                  <td>Shows whether the shock changes the primary object of interest.</td>
+                </tr>
+                <tr data-qa-id="outcome-mechanism">
+                  <td>Mechanisms</td>
+                  <td>Information search, disclosure, contracts, network links, customer or supplier concentration, investment, or risk management.</td>
+                  <td>Distinguishes the proposed channel from a reduced-form pattern.</td>
+                </tr>
+                <tr data-qa-id="outcome-heterogeneity">
+                  <td>Heterogeneity</td>
+                  <td>Exposure intensity, dependence, regulation, geography, size, constraints, public visibility, or cluster position.</td>
+                  <td>Tests whether the effect appears where the theory predicts it should.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="validity" aria-labelledby="validity-title">
+        <div class="section-number">09</div>
+        <div class="section-body">
+          <h2 id="validity-title" data-qa-id="validity-heading">Validity Threats And Checks</h2>
+          <p class="section-lead" data-qa-id="validity-lead">The proposal should not hide the strongest identification threats. It should convert them into planned tests, restrictions, and alternative interpretations.</p>
+          <div class="table-wrap">
+            <table data-qa-id="validity-table">
+              <thead>
+                <tr>
+                  <th>Threat</th>
+                  <th>Why It Matters</th>
+                  <th>Planned Response</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="threat-selection">
+                  <td>Strategic assignment or sorting</td>
+                  <td>Exposure may be correlated with unit value, geography, or expected outcomes.</td>
+                  <td>Use local comparisons, simulated or predicted assignment, rich pre-period covariates, and sensitivity checks.</td>
+                </tr>
+                <tr data-qa-id="threat-measurement">
+                  <td>Measurement error</td>
+                  <td>Misclassified location, exposure, timing, or outcomes can attenuate or bias results.</td>
+                  <td>Audit links, remove uncertain boundary cases, validate aggregates, and test alternative definitions.</td>
+                </tr>
+                <tr data-qa-id="threat-trends">
+                  <td>Local economic trends</td>
+                  <td>Treated units may sit in changing local markets.</td>
+                  <td>Use local-year fixed effects, boundary windows, pre-trends, and placebo years.</td>
+                </tr>
+                <tr data-qa-id="threat-scope">
+                  <td>Weak treatment for many units</td>
+                  <td>The average effect may be small even if the mechanism is real for exposed subgroups.</td>
+                  <td>Pre-specify politically, institutionally, or operationally exposed subgroups.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="interpretation" aria-labelledby="interpretation-title">
+        <div class="section-number">10</div>
+        <div class="section-body">
+          <h2 id="interpretation-title" data-qa-id="interpretation-heading">Interpretation Tree</h2>
+          <dl class="summary-lines">
+            <dt data-qa-id="interpret-positive-label">Positive</dt>
+            <dd data-qa-id="interpret-positive">If the predicted effect appears, the project supports a claim about [mechanism] under [scope condition], not a universal claim for all units.</dd>
+            <dt data-qa-id="interpret-null-label">Null</dt>
+            <dd data-qa-id="interpret-null">If estimates are small or noisy, the project can still clarify whether the setting lacks power, the treatment is weak, the mechanism is rare, or the theory needs narrowing.</dd>
+            <dt data-qa-id="interpret-mixed-label">Mixed</dt>
+            <dd data-qa-id="interpret-mixed">If results vary by subgroup or outcome, the paper pivots toward exposure intensity, mechanism-specific responses, or limits of external validity.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="section-number">11</div>
+        <div class="section-body">
+          <h2 id="roadmap-title" data-qa-id="roadmap-heading">Execution Roadmap</h2>
+          <ol class="roadmap" data-qa-id="roadmap-list">
+            <li data-qa-id="roadmap-1">Build the unit-level panel and verify stable units, identifiers, timing, and exclusions.</li>
+            <li data-qa-id="roadmap-2">Construct treatment variants, mechanism variables, and predicted exposure or counterfactual assignment measures.</li>
+            <li data-qa-id="roadmap-3">Produce the first descriptive table and first visualization that prove the design exists at meaningful scale.</li>
+            <li data-qa-id="roadmap-4">Estimate event-study and local-comparison specifications with transparent validity checks.</li>
+            <li data-qa-id="roadmap-5">Decide whether the project should continue as the full causal paper, a measurement paper, a mechanism paper, or a descriptive setting paper.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="extensions" aria-labelledby="extensions-title">
+        <div class="section-number">12</div>
+        <div class="section-body">
+          <h2 id="extensions-title" data-qa-id="extensions-heading">Project-Specific Extensions</h2>
+          <p class="section-lead" data-qa-id="extensions-lead">Use this section for material that the research question genuinely needs. Remove rows that do not apply.</p>
+          <dl class="summary-lines" data-qa-id="extensions-list">
+            <dt data-qa-id="extension-theory-label">Theory Or Model</dt>
+            <dd data-qa-id="extension-theory">Formal model, conceptual mechanism, scope condition, or prediction that sharpens why [X] should affect [Y].</dd>
+            <dt data-qa-id="extension-institution-label">Institutional Detail</dt>
+            <dd data-qa-id="extension-institution">Field-specific rules, legal process, platform design, organizational structure, or historical context that changes the interpretation of treatment.</dd>
+            <dt data-qa-id="extension-construction-label">Data Construction</dt>
+            <dd data-qa-id="extension-construction">Parsing, geocoding, matching, entity resolution, text coding, panel formation, sample restrictions, or validation work that determines whether the design is credible.</dd>
+            <dt data-qa-id="extension-evidence-label">Additional Evidence</dt>
+            <dd data-qa-id="extension-evidence">Interviews, case evidence, archival records, survey modules, simulations, robustness appendices, or external validity checks that are central to the proposal.</dd>
+            <dt data-qa-id="extension-ethics-label">Access And Ethics</dt>
+            <dd data-qa-id="extension-ethics">IRB, privacy, data-use limits, field access, stakeholder risk, or disclosure constraints that shape feasible execution.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="proposal-section" id="review" aria-labelledby="review-title">
+        <div class="section-number">13</div>
+        <div class="section-body">
+          <h2 id="review-title" data-qa-id="response-heading">Reviewer Questions And Revision Decisions</h2>
+          <div class="table-wrap">
+            <table data-qa-id="response-ledger">
+              <thead>
+                <tr>
+                  <th>Target</th>
+                  <th>Question</th>
+                  <th>Decision</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-qa-id="response-placeholder">
+                  <td>No target yet.</td>
+                  <td>No reviewer question recorded in this version.</td>
+                  <td>Pending.</td>
+                  <td>Open.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <dl class="summary-lines" data-qa-id="revision-list">
+            <dt data-qa-id="revision-v001-label">v001</dt>
+            <dd data-qa-id="revision-v001">Document-first research proposal template with anchored review.</dd>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <aside class="review-console" aria-label="Review console">
+      <div class="console-header">
+        <h2>Ask</h2>
+        <span class="mini" id="threadCount">0 questions</span>
+      </div>
+
+      <div class="target-box" aria-live="polite">
+        <div class="target-label">Target</div>
+        <div class="target-text" id="targetText">None</div>
+      </div>
+
+      <div class="field">
+        <label for="questionInput">Question</label>
+        <textarea id="questionInput" rows="4" placeholder="Question about this passage"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="responseInput">Answer</label>
+        <textarea id="responseInput" rows="4" placeholder="Answer, edit, or park"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="statusInput">Status</label>
+        <select id="statusInput">
+          <option value="open">Open</option>
+          <option value="answered">Answered</option>
+          <option value="revised">Revised</option>
+          <option value="parked">Parked</option>
+        </select>
+      </div>
+
+      <div class="button-row">
+        <button type="button" id="addThread">Add question</button>
+        <button type="button" class="secondary" id="exportThreads">Export</button>
+        <button type="button" class="secondary" id="importTrigger">Import</button>
+        <button type="button" class="secondary" id="copyPrompt">Copy prompt</button>
+        <input class="file-input" id="importFile" type="file" accept="application/json">
+      </div>
+
+      <div class="threads" id="threads"></div>
+    </aside>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector("[data-review-root]");
+      var body = document.body;
+      var documentId = body.getAttribute("data-document-id") || "research-proposal-review";
+      var version = body.getAttribute("data-version") || "v001";
+      var storageKey = "refine-proposal:" + documentId + ":" + version;
+      var selectedTarget = null;
+      var askableSelector = "h1,h2,h3,p,li,blockquote,td,th,dt,dd,figcaption,.abstract,.memo-block,.concept-flow,.formula-line";
+
+      var els = {
+        targetText: document.getElementById("targetText"),
+        question: document.getElementById("questionInput"),
+        response: document.getElementById("responseInput"),
+        status: document.getElementById("statusInput"),
+        add: document.getElementById("addThread"),
+        export: document.getElementById("exportThreads"),
+        importTrigger: document.getElementById("importTrigger"),
+        importFile: document.getElementById("importFile"),
+        copyPrompt: document.getElementById("copyPrompt"),
+        threads: document.getElementById("threads"),
+        threadCount: document.getElementById("threadCount")
+      };
+
+      var state = loadState();
+
+      function loadState() {
+        try {
+          var raw = window.localStorage.getItem(storageKey);
+          if (raw) {
+            return JSON.parse(raw);
+          }
+        } catch (error) {
+          console.warn("Could not load annotations", error);
+        }
+        return {
+          schemaVersion: 1,
+          documentId: documentId,
+          version: version,
+          threads: []
+        };
+      }
+
+      function saveState() {
+        state.updatedAt = new Date().toISOString();
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (error) {
+          console.warn("Could not save annotations", error);
+        }
+      }
+
+      function ensureTargets() {
+        var nodes = root.querySelectorAll(askableSelector);
+        Array.prototype.forEach.call(nodes, function (node, index) {
+          if (!node.getAttribute("data-qa-id")) {
+            node.setAttribute("data-qa-id", "auto-" + (index + 1));
+          }
+          node.classList.add("askable");
+          if (!node.hasAttribute("tabindex")) {
+            node.setAttribute("tabindex", "0");
+          }
+        });
+      }
+
+      function compactText(value, limit) {
+        var clean = String(value || "").replace(/\s+/g, " ").trim();
+        if (clean.length <= limit) {
+          return clean;
+        }
+        return clean.slice(0, limit - 1) + "...";
+      }
+
+      function labelFor(node) {
+        var id = node.getAttribute("data-qa-id");
+        var heading = node.matches("section,article,div,dl,ol,ul")
+          ? node.querySelector("h1,h2,h3,dt,strong,b")
+          : null;
+        var text = heading ? heading.textContent : node.textContent;
+        return id + " | " + compactText(text, 82);
+      }
+
+      function findTargetById(id) {
+        var nodes = root.querySelectorAll("[data-qa-id]");
+        for (var i = 0; i < nodes.length; i += 1) {
+          if (nodes[i].getAttribute("data-qa-id") === id) {
+            return nodes[i];
+          }
+        }
+        return null;
+      }
+
+      function setTarget(node, selectedText) {
+        if (!node) {
+          return;
+        }
+        var previous = root.querySelector(".is-selected");
+        if (previous) {
+          previous.classList.remove("is-selected");
+        }
+        node.classList.add("is-selected");
+        selectedTarget = {
+          id: node.getAttribute("data-qa-id"),
+          label: labelFor(node),
+          selectedText: compactText(selectedText || "", 500)
+        };
+        els.targetText.textContent = selectedTarget.selectedText
+          ? selectedTarget.label + " | Text: " + selectedTarget.selectedText
+          : selectedTarget.label;
+      }
+
+      function nearestTarget(node) {
+        if (!node) {
+          return null;
+        }
+        if (node.nodeType === 3) {
+          node = node.parentElement;
+        }
+        return node.closest("[data-qa-id]");
+      }
+
+      function addThread() {
+        if (!selectedTarget) {
+          els.targetText.textContent = "Choose text first.";
+          return;
+        }
+        var question = els.question.value.trim();
+        var response = els.response.value.trim();
+        if (!question) {
+          els.question.focus();
+          return;
+        }
+        var now = new Date().toISOString();
+        state.threads.unshift({
+          id: "thread-" + Date.now().toString(36),
+          targetId: selectedTarget.id,
+          targetLabel: selectedTarget.label,
+          selectedText: selectedTarget.selectedText,
+          question: question,
+          response: response,
+          status: els.status.value,
+          createdAt: now,
+          updatedAt: now
+        });
+        els.question.value = "";
+        els.response.value = "";
+        els.status.value = "open";
+        saveState();
+        render();
+      }
+
+      function updateThread(id, patch) {
+        state.threads = state.threads.map(function (thread) {
+          if (thread.id !== id) {
+            return thread;
+          }
+          Object.keys(patch).forEach(function (key) {
+            thread[key] = patch[key];
+          });
+          thread.updatedAt = new Date().toISOString();
+          return thread;
+        });
+        saveState();
+        renderBadges();
+        renderCount();
+      }
+
+      function removeThread(id) {
+        state.threads = state.threads.filter(function (thread) {
+          return thread.id !== id;
+        });
+        saveState();
+        render();
+      }
+
+      function renderCount() {
+        var count = state.threads.length;
+        els.threadCount.textContent = count + (count === 1 ? " question" : " questions");
+      }
+
+      function renderBadges() {
+        var oldBadges = root.querySelectorAll(".thread-badge");
+        Array.prototype.forEach.call(oldBadges, function (badge) {
+          badge.remove();
+        });
+
+        var counts = {};
+        state.threads.forEach(function (thread) {
+          counts[thread.targetId] = (counts[thread.targetId] || 0) + 1;
+        });
+
+        Object.keys(counts).forEach(function (id) {
+          var target = findTargetById(id);
+          if (!target) {
+            return;
+          }
+          var badge = document.createElement("span");
+          badge.className = "thread-badge";
+          badge.textContent = counts[id];
+          badge.setAttribute("aria-label", counts[id] + " questions");
+          target.appendChild(badge);
+        });
+      }
+
+      function renderThreads() {
+        els.threads.innerHTML = "";
+        if (!state.threads.length) {
+          var empty = document.createElement("p");
+          empty.className = "mini";
+          empty.textContent = "No questions yet.";
+          els.threads.appendChild(empty);
+          return;
+        }
+
+        state.threads.forEach(function (thread) {
+          var card = document.createElement("article");
+          card.className = "thread";
+
+          var top = document.createElement("div");
+          top.className = "thread-top";
+
+          var id = document.createElement("div");
+          id.className = "thread-id";
+          id.textContent = thread.targetId + " | " + thread.status;
+
+          var jump = document.createElement("button");
+          jump.type = "button";
+          jump.className = "secondary";
+          jump.textContent = "Find";
+          jump.addEventListener("click", function () {
+            var target = findTargetById(thread.targetId);
+            if (target) {
+              setTarget(target, thread.selectedText);
+              target.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          });
+
+          top.appendChild(id);
+          top.appendChild(jump);
+
+          var selection = document.createElement("p");
+          selection.className = "mini";
+          selection.textContent = thread.selectedText ? "Text: " + thread.selectedText : thread.targetLabel;
+
+          var q = document.createElement("p");
+          q.innerHTML = "<strong>Q:</strong> " + escapeHtml(thread.question);
+
+          var statusField = document.createElement("select");
+          ["open", "answered", "revised", "parked"].forEach(function (status) {
+            var option = document.createElement("option");
+            option.value = status;
+            option.textContent = status;
+            option.selected = thread.status === status;
+            statusField.appendChild(option);
+          });
+          statusField.addEventListener("change", function () {
+            updateThread(thread.id, { status: statusField.value });
+          });
+
+          var response = document.createElement("textarea");
+          response.rows = 3;
+          response.value = thread.response || "";
+          response.placeholder = "Answer";
+          response.addEventListener("change", function () {
+            updateThread(thread.id, { response: response.value });
+          });
+
+          var remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "secondary";
+          remove.textContent = "Delete question";
+          remove.addEventListener("click", function () {
+            removeThread(thread.id);
+          });
+
+          card.appendChild(top);
+          card.appendChild(selection);
+          card.appendChild(q);
+          card.appendChild(statusField);
+          card.appendChild(response);
+          card.appendChild(remove);
+          els.threads.appendChild(card);
+        });
+      }
+
+      function render() {
+        renderCount();
+        renderBadges();
+        renderThreads();
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function exportThreads() {
+        var blob = new Blob([JSON.stringify(state, null, 2) + "\n"], {
+          type: "application/json"
+        });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "annotations_" + documentId + "_" + version + ".json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function importThreads(file) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            var imported = JSON.parse(String(reader.result || "{}"));
+            if (!Array.isArray(imported.threads)) {
+              throw new Error("Missing threads array");
+            }
+            state = {
+              schemaVersion: imported.schemaVersion || 1,
+              documentId: imported.documentId || documentId,
+              version: imported.version || version,
+              threads: imported.threads
+            };
+            saveState();
+            render();
+          } catch (error) {
+            alert("Could not import annotations: " + error.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function copyPrompt() {
+        var lines = [
+          "Use $refine-proposal to revise current.html.",
+          "Address the questions below. Update the affected proposal text first, then update the reviewer ledger and save a new version.",
+          "Do not leave resolved decisions only in the ledger; migrate them into the relevant synopsis, data, design, outcomes, validity, extension, or roadmap section.",
+          "Preserve parts that did not receive questions unless they directly depend on questioned parts and need a corresponding update.",
+          "",
+          "Questions:"
+        ];
+        state.threads.forEach(function (thread, index) {
+          lines.push("");
+          lines.push(String(index + 1) + ". Target: " + thread.targetId);
+          if (thread.selectedText) {
+            lines.push("Text: " + thread.selectedText);
+          }
+          lines.push("Question: " + thread.question);
+          lines.push("Answer: " + (thread.response || "[open]"));
+          lines.push("Status: " + thread.status);
+        });
+        var text = lines.join("\n");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text);
+        } else {
+          var temp = document.createElement("textarea");
+          temp.value = text;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          temp.remove();
+        }
+      }
+
+      root.addEventListener("click", function (event) {
+        if (event.target.closest("button,input,textarea,select,a")) {
+          return;
+        }
+        var target = nearestTarget(event.target);
+        if (target) {
+          setTarget(target, "");
+        }
+      });
+
+      root.addEventListener("mouseup", function () {
+        var selection = window.getSelection();
+        if (!selection || selection.isCollapsed) {
+          return;
+        }
+        var text = selection.toString().trim();
+        if (!text) {
+          return;
+        }
+        var node = nearestTarget(selection.anchorNode);
+        if (node && root.contains(node)) {
+          setTarget(node, text);
+        }
+      });
+
+      root.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+        var target = nearestTarget(event.target);
+        if (target) {
+          event.preventDefault();
+          setTarget(target, "");
+        }
+      });
+
+      els.add.addEventListener("click", addThread);
+      els.export.addEventListener("click", exportThreads);
+      els.importTrigger.addEventListener("click", function () {
+        els.importFile.click();
+      });
+      els.importFile.addEventListener("change", function () {
+        if (els.importFile.files && els.importFile.files[0]) {
+          importThreads(els.importFile.files[0]);
+        }
+      });
+      els.copyPrompt.addEventListener("click", copyPrompt);
+
+      ensureTargets();
+      render();
+    })();
+  </script>
+</body>
+</html>

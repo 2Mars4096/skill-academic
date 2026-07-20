@@ -1,0 +1,7 @@
+interface:
+  display_name: "Plot Colors"
+  short_description: "Choose professional plotting color schemes"
+  default_prompt: "Use $plot-colors to choose and apply a professional, accessible color scheme for these plots."
+
+policy:
+  allow_implicit_invocation: true

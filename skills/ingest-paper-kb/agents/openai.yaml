@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ingest Paper KB"
+  short_description: "Ingest and skim papers into my knowledge base"
+  default_prompt: "Use $ingest-paper-kb to organize these PDFs and BibTeX entries into my knowledge base."

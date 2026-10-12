@@ -1,0 +1,19 @@
+% Load in the preamble of a local review copy. Ordinary prose only.
+\RequirePackage{xcolor}
+\definecolor{TRoriginal}{HTML}{9C3535}
+\definecolor{TRproposal}{HTML}{174C91}
+\newcommand{\TRreplace}[3]{%
+  {\color{TRoriginal}#2}\allowbreak\space
+  {\color{TRproposal}[\textbf{#1}\enspace--- replace with: #3]}}
+\newcommand{\TRinsert}[2]{%
+  {\color{TRproposal}[\textbf{#1}\enspace--- insert: #2]}}
+\newcommand{\TRdelete}[2]{%
+  {\color{TRoriginal}#2}\allowbreak\space
+  {\color{TRproposal}[\textbf{#1}\enspace--- delete preceding marked text]}}
+% Keep with manuscript content; never add a dedicated page or forced break.
+\newcommand{\TRlegend}{%
+  \par\noindent\textbf{Review key:}
+  {\color{TRoriginal}Red = affected original text};
+  {\color{TRproposal}blue brackets = labeled proposals}, not manuscript prose.
+  Unmarked text is unchanged.
+  \par\smallskip}

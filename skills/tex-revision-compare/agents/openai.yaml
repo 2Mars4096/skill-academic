@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaTeX Revision Comparison"
+  short_description: "Readable LaTeX comparisons with minimal colored edits"
+  default_prompt: "Use $tex-revision-compare to make a local LaTeX review copy with original wording preserved and only necessary edits marked at the smallest meaningful span."

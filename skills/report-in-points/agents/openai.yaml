@@ -1,0 +1,7 @@
+interface:
+  display_name: "Report in Points"
+  short_description: "Group feedback and report what is done or still open"
+  default_prompt: "Use $report-in-points to account for every substantive request in this feedback and report completed work, evidence, and remaining tasks in grouped bullets and sub-bullets."
+
+policy:
+  allow_implicit_invocation: true

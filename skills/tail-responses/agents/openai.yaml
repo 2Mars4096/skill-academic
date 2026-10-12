@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tail Responses"
+  short_description: "Find useful outlier ideas and return four candidates"
+  default_prompt: "Use $tail-responses to generate 16 responses to my question, compare their core ideas, and return four concise candidates with standard assessments."
+
+policy:
+  allow_implicit_invocation: true

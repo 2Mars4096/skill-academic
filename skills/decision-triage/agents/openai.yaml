@@ -1,0 +1,7 @@
+interface:
+  display_name: "Decision Triage"
+  short_description: "Triage decisions and to-dos by ambiguity and risk"
+  default_prompt: "Use $decision-triage to assess these tasks by ambiguity and risk, recommend how to handle each, and organize prioritized next actions."
+
+policy:
+  allow_implicit_invocation: true

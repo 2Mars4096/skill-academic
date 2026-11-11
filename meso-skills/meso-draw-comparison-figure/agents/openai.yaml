@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare a comparative figure"
+policy:
+  allow_implicit_invocation: false

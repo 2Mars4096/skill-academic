@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research discovery and design"
+policy:
+  allow_implicit_invocation: false

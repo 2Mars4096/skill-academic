@@ -1,0 +1,4 @@
+interface:
+  display_name: "Professional communication and follow-up"
+policy:
+  allow_implicit_invocation: false

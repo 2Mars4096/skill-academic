@@ -1,0 +1,4 @@
+interface:
+  display_name: "Report what changed after feedback"
+policy:
+  allow_implicit_invocation: false

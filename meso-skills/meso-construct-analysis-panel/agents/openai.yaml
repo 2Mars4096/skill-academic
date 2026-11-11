@@ -1,0 +1,4 @@
+interface:
+  display_name: "Construct a panel and its measures"
+policy:
+  allow_implicit_invocation: false

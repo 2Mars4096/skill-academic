@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify a reported bug fix"
+policy:
+  allow_implicit_invocation: false

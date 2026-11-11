@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clean records for an analysis sample"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Choose the next empirical test"
+policy:
+  allow_implicit_invocation: false

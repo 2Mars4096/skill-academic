@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compare a regression variation with its baseline"
+policy:
+  allow_implicit_invocation: false

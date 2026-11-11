@@ -1,0 +1,4 @@
+interface:
+  display_name: "Empirical code and data"
+policy:
+  allow_implicit_invocation: false

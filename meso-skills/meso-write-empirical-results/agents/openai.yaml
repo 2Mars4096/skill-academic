@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write an empirical results section"
+policy:
+  allow_implicit_invocation: false

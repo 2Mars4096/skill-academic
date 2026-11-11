@@ -1,0 +1,4 @@
+interface:
+  display_name: "Organize research files for reruns"
+policy:
+  allow_implicit_invocation: false

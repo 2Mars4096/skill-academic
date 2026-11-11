@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic manuscripts"
+policy:
+  allow_implicit_invocation: false

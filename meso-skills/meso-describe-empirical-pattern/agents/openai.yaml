@@ -1,0 +1,4 @@
+interface:
+  display_name: "Check a descriptive pattern"
+policy:
+  allow_implicit_invocation: false
